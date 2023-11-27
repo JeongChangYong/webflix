@@ -42,13 +42,13 @@ public class LoginController {
 		
 		
 	}
-	@PostMapping("login")
+	@RequestMapping("login")
 	public String login(@Validated LoginCommand loginCommand, BindingResult result , HttpSession session ,HttpServletResponse response ) {
 		
 		userLoginService.execute(loginCommand, session, result , response);
 		if(result.hasErrors()) {
 			
-			return "thymeleaf/index";
+			return "thymeleaf/login";
 		}
 		
 		return "redirect:/";
