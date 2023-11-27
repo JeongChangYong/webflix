@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import webflix.command.MemberCommand;
 import webflix.service.member.MemberAutoNumService;
 import webflix.service.member.MemberInsertService;
+import webflix.service.member.MemberListService;
 
 @Controller
 @RequestMapping("member")
@@ -21,10 +22,12 @@ public class MemberController {
 	MemberAutoNumService memberAutoNumService;
 	@Autowired
 	MemberInsertService memberInsertService;
+	@Autowired
+	MemberListService memberListService;
 	@RequestMapping("memberList")
 	public String memberList(Model model, @RequestParam(value="searchWord", required = false)String searchWord,
 			 @RequestParam(value="page" , required = false , defaultValue = "1") int page) {
-		
+		memberListService.execute(model, searchWord, page);
 		return "thymeleaf/member/memberList";
 	}
 	@GetMapping("memberRegist")

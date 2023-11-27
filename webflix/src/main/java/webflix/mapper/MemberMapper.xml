@@ -18,4 +18,34 @@ values(#{memNum}, #{memId}, #{memPw}, #{memName}, #{memAddr}
 
 </insert>
 
+  <select id="memberCount" parameterType="string" resultType="integer">
+  
+  select count(*) from members
+  		<if test="searchWord != null">
+	    <where> mem_name like '%' ||#{searchWord}|| '%'
+				or mem_num like  '%' ||#{searchWord}|| '%'
+				or mem_id like '%' ||#{searchWord}|| '%'
+		</where>
+	    </if>
+  
+  </select>
+  
+    <sql id="memberColumnsBase">
+mem_num memNum,mem_id memId,mem_pw memPw,mem_name memName,mem_addr memAddr,mem_addr_detail memAddrDetail
+,mem_post memPost,mem_phone memPhone,mem_regist memRegist,mem_jumin memJumin,mem_email memEmail
+,mem_email_conf memEmailConf,mem_point memPoint,mem_event_win memEventWin
+  </sql>
+
+
+<select id="selectAll" resultType="member"  parameterType="startEndPageDTO" >
+  select * from( select row_number() over(order by mem_num asc)as rn ,<include refid="memberColumnsBase" /> from members
+	    <if test="searchWord != null">
+	    where mem_name like '%' ||#{searchWord}|| '%'
+				or mem_num like  '%' ||#{searchWord}|| '%'
+				or mem_id like '%' ||#{searchWord}|| '%'
+	    </if>) sub1
+	
+	where rn between #{startRow} and #{endRow}	 
+	  
+  </select>
 </mapper>
