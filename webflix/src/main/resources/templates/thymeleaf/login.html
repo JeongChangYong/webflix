@@ -11,15 +11,17 @@
 
 <div class="w3-container w3-half w3-margin-top">
 
-<form class="w3-container w3-card-4" action="login/login" method="post" >
+<form class="w3-container w3-card-4" action="login" method="post" th:object="${loginCommand}" >
 
 <p>
 <label>ID</label>
-<input class="w3-input" type="text" style="width:90%" required>
+<input class="w3-input" type="text" name="userId" th:value="${loginCommand.userId}" style="width:90%" > <br />
+<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"><br /></span>
 </p>
 <p>
 <label>Password</label>
-<input class="w3-input" type="password" style="width:90%" required>
+<input class="w3-input" type="password" name="userPw" style="width:90%" > <br />
+<span th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}"><br /></span>
 </p>
 
 
@@ -28,7 +30,7 @@
 <input id="milk" class="w3-check" type="checkbox">
 <label>자동 로그인</label></p>
 <p>
-<button class="w3-button w3-section w3-teal w3-ripple"> Log in </button></p>
+<input type="submit" value="Log In" /></p>
 
 </form>
 

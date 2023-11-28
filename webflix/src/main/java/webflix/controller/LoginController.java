@@ -21,7 +21,6 @@ import webflix.service.login.IdCheckService;
 import webflix.service.login.UserLoginService;
 
 @Controller
-@RequestMapping("login")
 public class LoginController {
 	@Autowired
 	IdCheckService idCheckService;
@@ -42,7 +41,13 @@ public class LoginController {
 		
 		
 	}
-	@RequestMapping("login")
+	@GetMapping("login")
+	public String login(LoginCommand loginCommand) {
+		
+		return "thymeleaf/login";
+	}
+	
+	@PostMapping("login")
 	public String login(@Validated LoginCommand loginCommand, BindingResult result , HttpSession session ,HttpServletResponse response ) {
 		
 		userLoginService.execute(loginCommand, session, result , response);

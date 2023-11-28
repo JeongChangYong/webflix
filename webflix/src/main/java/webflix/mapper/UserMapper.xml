@@ -40,9 +40,9 @@ mem_event_win)
  
  </resultMap>
  
- <select id="loginSelect" parameterType="string" resultMap="authInfoResultMap">
+ <select id="loginSelect" parameterType="string" resultType="authInfo">
   
- select mem_id , mem_pw  , mem_name , 'mem' grade , mem_email , mem_email_conf 
+ select mem_id userId , mem_pw userPw , mem_name userName , 'mem' grade , mem_email  userEmail, mem_email_conf userEmailCheck 
  from members
  where mem_id=#{userId}
  union
