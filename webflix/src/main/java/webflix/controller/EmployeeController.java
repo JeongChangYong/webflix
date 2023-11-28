@@ -19,7 +19,7 @@ import webflix.service.employees.EmployeeUpdateService;
 import webflix.service.employees.EmployeesDeleteService;
 
 @Controller
-@RequestMapping("employee")
+
 public class EmployeeController {
 	@Autowired
 	EmployeeListService employeeListService;
