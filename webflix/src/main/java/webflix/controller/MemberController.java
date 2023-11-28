@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import webflix.command.MemberCommand;
 import webflix.service.member.MemberAutoNumService;
+import webflix.service.member.MemberDeleteService;
 import webflix.service.member.MemberDetailService;
 import webflix.service.member.MemberInsertService;
 import webflix.service.member.MemberListService;
 import webflix.service.member.MemberUpdateService;
+import webflix.service.member.MembersDeleteService;
 
 @Controller
 public class MemberController {
@@ -29,11 +31,21 @@ public class MemberController {
 	MemberDetailService memberDetailService;
 	@Autowired
 	MemberUpdateService memberUpdateService;
+	@Autowired
+	MembersDeleteService membersDeleteService;
+	@Autowired
+	MemberDeleteService memberDeleteService;
 	@RequestMapping("memberList")
 	public String memberList(Model model, @RequestParam(value="searchWord", required = false)String searchWord,
 			 @RequestParam(value="page" , required = false , defaultValue = "1") int page) {
 		memberListService.execute(model, searchWord, page);
 		return "thymeleaf/member/memberList";
+	}
+	@PostMapping("membersDelete")
+	public String dels(@RequestParam(value="memDels")String memDels[]) {
+		membersDeleteService.execute(memDels);
+		return "redirect:memberList";
+		
 	}
 	@GetMapping("memberRegist")
 	public String memberRegist(MemberCommand memberCommand, Model model) {
@@ -73,6 +85,12 @@ public class MemberController {
 		memberUpdateService.execute(memberCommand);
 		
 		return "redirect:memberDetail?memberNum="+memberCommand.getMemNum();
+	}
+	@GetMapping("memberDelete")
+	public String memberDelete(@RequestParam(value="memberNum")String memberNum) {
+		
+		memberDeleteService.execute(memberNum);
+		return "redirect:memberList";
 	}
 	
 }

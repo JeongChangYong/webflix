@@ -3,6 +3,7 @@ package webflix.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import webflix.domain.MemberDTO;
 import webflix.domain.StartEndPageDTO;
@@ -15,4 +16,6 @@ public interface MemberMapper {
 	public List<MemberDTO> selectAll(StartEndPageDTO sepDTO);
 	public MemberDTO selectOne(String memberNum);
 	public int memberUpdate(MemberDTO dto);
+	public int membersDelete(@Param("memDels")String [] memDels);
+	public int memberDelete(String memberNum);
 }

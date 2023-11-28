@@ -66,4 +66,27 @@ mem_num memNum,mem_id memId,mem_pw memPw,mem_name memName,mem_addr memAddr,mem_a
   
   </update>
   
+    <delete id="membersDelete" parameterType="string">
+  
+  delete from members where mem_num in
+  	<foreach collection="memDels" item="memNum" open="(" close=")" index="index" separator=",">
+  	#{memNum}
+  	</foreach>
+  
+  </delete>
+  
+   <delete id="memberDelete" parameterType="string">
+ 
+ delete from members 
+ 
+ <trim prefix="where" prefixOverrides="And | OR" >
+ and mem_num = #{memberNum}
+ 
+ </trim>
+ 
+ 
+ 
+ 
+ </delete>
+  
 </mapper>
