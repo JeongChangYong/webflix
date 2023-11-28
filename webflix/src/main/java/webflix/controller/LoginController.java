@@ -1,15 +1,11 @@
 package webflix.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -58,6 +54,25 @@ public class LoginController {
 		
 		return "redirect:/";
 		
+	}
+	@GetMapping("logout")
+	public String logout(HttpSession session, HttpServletResponse response) {
+		
+		//쿠키생성
+		Cookie cookie = new Cookie("autoLogin", "");
+				
+		//저장경로
+		cookie.setPath("/");
+				
+		//수명주기
+		cookie.setMaxAge(0);
+				
+		//사용자에게 쿠키 전송
+		response.addCookie(cookie);
+		
+		session.invalidate();
+		
+		return "redirect:/";
 	}
 	
 	

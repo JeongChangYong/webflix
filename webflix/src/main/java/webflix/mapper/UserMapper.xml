@@ -17,10 +17,10 @@
  ,mem_addr_detail,mem_post,mem_phone,mem_regist,mem_jumin
  ,mem_email,mem_email_conf,mem_point,
 mem_event_win)
-  values((select concat('mem', coalesce(max(substring(member_num,4)::integer),1000000)+1)  from members) 
+  values((select concat('mem', coalesce(max(substring(mem_num,4)::integer),1000000)+1)  from members) 
   , #{memId} , #{memPw} , #{memName} , #{memAddr} 
   , #{memAddrDetail} , #{memPost} , #{memPhone} 
-  , now(), #{memJumin} , #{memEmail} , null, 0 );
+  , now(), #{memJumin} , #{memEmail} , null, 0 , 'F');
  
  
  </insert>

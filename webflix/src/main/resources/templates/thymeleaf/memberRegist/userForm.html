@@ -22,7 +22,7 @@ $(function(){
 	$("#memEmail").on("change keyup", function(){
 		$.ajax({
 			type : 'post',
-			url : "/checkRest/userEmailCheck",
+			url : "checkRest/userEmailCheck",
 			data :  {"userEmail" : $("#memEmail").val()},
 			dataType: 'text',
 			success : function(result){
@@ -86,8 +86,7 @@ $(function(){
 </head>
 <body>
 회원등록 <br />
-<form action="memberRegist" method="post" id="frm" th:object="${memberCommand}">
-회원번호 : <input type="text" name="memNum" readonly="readonly" th:value="${memberCommand.memNum}" /> <br />
+<form action="userRegist" method="post" id="frm" th:object="${memberCommand}">
 회원아이디 : <input type="text" name="memId" id="memId" th:value="${memberCommand.memId}" />  <br />
 <span id='idCheck'></span> 
 <span style="color: red" th:if="${#fields.hasErrors('memId')}" th:errors="*{memId}"> </span><br />
