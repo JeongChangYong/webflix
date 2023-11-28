@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>My Info</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<div class="w3-container w3-grey" style="position:relative">
+<div class="w3-right w3-padding-16"><a href="/"> WEBFLIX</a></div>
+ <a class="w3-btn w3-circle w3-xlarge w3-right w3-white" style="position:absolute;top:126px;right:42px;"><i>+</i></a>
+ <h1 class="w3-jumbo w3-text-grey" style="text-shadow:1px 1px 0 #444">My Info</h1>
+</div>
+
+<div class="w3-grey w3-animate-zoom" style="padding:20px 50px;">
+
+<div class="w3-section w3-row-padding">
+
+  <div class="w3-twothird">
+    <div class="w3-card-4">
+      <div class="w3-display-container">
+		이름 : [[${dto.memName}]]<br />
+        주민등록번호 : [[${dto.memJumin}]]<br />
+        아이디 : [[${dto.memId}]]  <br />
+        주소 : [[${dto.memAddr}]]<br />
+        상세주소 :[[${dto.memAddrDetail}]] <br />
+        우편번호 : [[${dto.memPost}]]<br />
+        연락처 : [[${dto.memPhone}]]<br />
+        가입일 :[[${#dates.format(dto.memRegist, 'yyyy-MM-dd')}]] <br />
+        포인트 :[[${dto.memPoint}]] <br />
+        이벤트 당첨 여부 :[[${dto.memEventWin}]]<br /> 
+      
+      </div>
+      <a th:href="|memberUpdate?memberNum=${dto.memNum}|">정보수정</a>
+      <a th:href="|memberDelete?memberNum=${dto.memNum}|">정보삭제</a>  
+    </div>
+  </div>
+ 
+</div>
+
+
+
+
+
+<div class="w3-section w3-container">
+<div class="w3-card-4">
+  <div class="w3-container w3-padding-16 w3-black w3-xxlarge">
+   
+  </div>
+  <div class="w3-container w3-white">
+  </div>
+</div>
+</div>
+
+</div>
+
+<footer class="w3-container">
+ 
+</footer>
+
+</body>
+</html>

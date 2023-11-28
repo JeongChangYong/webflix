@@ -48,4 +48,22 @@ mem_num memNum,mem_id memId,mem_pw memPw,mem_name memName,mem_addr memAddr,mem_a
 	where rn between #{startRow} and #{endRow}	 
 	  
   </select>
+  
+  <select id="selectOne" parameterType="string" resultType="member">
+  select <include refid="memberColumnsBase" /> from members
+  where mem_num = #{memberNum}
+  
+  </select>
+  
+  <update id="memberUpdate" parameterType="member">
+  
+  update members
+  set mem_name= #{memName}, mem_jumin=#{memJumin}, mem_id=#{memId}
+  , mem_addr= #{memAddr}, mem_addr_detail =#{memAddrDetail}, mem_post=#{memPost}
+  , mem_phone=#{memPhone}, mem_regist=#{memRegist},mem_point=#{memPoint}
+  , mem_event_win =#{memEventWin}
+  where mem_num= #{memNum}
+  
+  </update>
+  
 </mapper>

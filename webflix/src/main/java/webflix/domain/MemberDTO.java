@@ -21,6 +21,6 @@ public class MemberDTO {
 	   String memJumin;
 	   String memEmail;
 	   String memEmailConf;
-	   String memPoint;
+	   Integer memPoint;
 	   String memEventWin;
 }

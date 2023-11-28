@@ -1,51 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>W3.CSS Template</title>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-1.8.1.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	
-	$("#frm").submit(function(){
-		if($("input:checkbox[name=memDels]:checked").length < 1){
-			alert("하나이상 선택하세요.");
-			return false;
-			
-		}
-		
-	});
-	$("#checkBoxs").click(function(){
-		if($("#checkBoxs").prop("checked")){
-			$("input:checkbox[name=memDels]").prop("checked", true);
-			
-			
-		}else{
-			
-			$("input:checkbox[name=memDels]").prop("checked", false);
-		}
-		
-	});
-	$("input:checkbox[name=memDels]").click(function(){
-		var tot = $("input:checkbox[name=memDels]").length;
-		var checked = $("input:checkbox[name=memDels]:checked").length;
-		if(tot == checked){
-			$("#checkBoxs").prop("checked", true); 	
-			
-		}else {
-			$("#checkBoxs").prop("checked" , false);
-			
-		}
-		
-		
-	});
-	
-});
-
-</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+</style>
 </head>
 <body>
-	<table border=1 width=600>
+
+
+
+<!-- Top menu -->
+<div class="w3-top">
+  <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+ 
+   
+    <div class="w3-center w3-padding-16"><a href="/" style="text-decoration:none;"> MemberList</a></div>
+  </div>
+</div>
+  
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+<table border=1 width=600 align="center">
 	<form action="memberList" method="get">
 	<tr align="center"><td colspan="5">검색 : 
 								<input type="search" name="searchWord" size="60" th:value="${searchWord}"/>
@@ -95,6 +76,52 @@ $(function(){
 
 
 	<a href="memberRegist">회원등록</a>
+
+ 
+
+<!-- End page content -->
+</div>
+
+<script src="https://code.jquery.com/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+	$("#frm").submit(function(){
+		if($("input:checkbox[name=memDels]:checked").length < 1){
+			alert("하나이상 선택하세요.");
+			return false;
+			
+		}
+		
+	});
+	$("#checkBoxs").click(function(){
+		if($("#checkBoxs").prop("checked")){
+			$("input:checkbox[name=memDels]").prop("checked", true);
+			
+			
+		}else{
+			
+			$("input:checkbox[name=memDels]").prop("checked", false);
+		}
+		
+	});
+	$("input:checkbox[name=memDels]").click(function(){
+		var tot = $("input:checkbox[name=memDels]").length;
+		var checked = $("input:checkbox[name=memDels]:checked").length;
+		if(tot == checked){
+			$("#checkBoxs").prop("checked", true); 	
+			
+		}else {
+			$("#checkBoxs").prop("checked" , false);
+			
+		}
+		
+		
+	});
+	
+});
+
+</script>
 
 </body>
 </html>

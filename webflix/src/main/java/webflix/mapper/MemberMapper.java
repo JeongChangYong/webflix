@@ -13,4 +13,6 @@ public interface MemberMapper {
 	public int memberInsert(MemberDTO dto);
 	public int memberCount(String searchWord);
 	public List<MemberDTO> selectAll(StartEndPageDTO sepDTO);
+	public MemberDTO selectOne(String memberNum);
+	public int memberUpdate(MemberDTO dto);
 }
