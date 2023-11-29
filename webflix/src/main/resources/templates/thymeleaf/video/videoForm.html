@@ -5,7 +5,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="videoWrite">
+<form action="videoWrite" method="post" enctype="multipart/form-data" th:object="${videoCommand}">
+영상번호 : <input type="text" name="videoNum" th:value="${videoCommand.videoNum}" readonly="readonly" /><br />
+영상명 : <input type="text" name="videoName" /> <br />
+테마 : <select name="videoTheme">
+				<option>영화</option>
+				<option>드라마</option>
+				<option>애니메이션</option>
+	  </select> <br />
+이미지 : <input type="file" name="videoImage" /> <br />
+영상파일 : <input type="file" name="videoFile" /> <br />
+<input type="submit" value="영상등록" />
+
 
 
 
