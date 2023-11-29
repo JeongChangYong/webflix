@@ -48,6 +48,14 @@ select count(*) from video
 
 </select>
 
+<select id="selectOne" resultType="video" parameterType="string">
+select video_num videoNum ,video_theme videoTheme ,video_image videoImage ,video_image_origin videoImageOrigin
+		,video_name videoName ,video_file videoFile ,video_file_origin videoFileOrigin
+from video
+where video_num =#{videoNum}
+
+</select>
+
 
 
 </mapper>

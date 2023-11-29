@@ -13,11 +13,11 @@
 								<input type="search" name="searchWord" size="60" th:value="${searchWord}"/>
 								<input type="submit" value="검색">  </td> </tr>
 </form>
-<tr><td>번호</td> <td>영상번호</td><td>영상명</td><td>테마</td></tr>
+<tr><td>번호</td><td>영상번호</td><td>영상명</td><td>테마</td></tr>
 <tr th:each="dto, cnt : ${dtos}">
 <td>[[${cnt.count}]]</td>
-<td>[[${dto.videoNum}]]</td>
-<td>[[${dto.videoName}]]</td>
+<td><a th:href="|videoDetail?videoNum=${dto.videoNum}|">[[${dto.videoNum}]] </a></td>
+<td><a th:href="|videoDetail?videoNum=${dto.videoNum}|">  [[${dto.videoName}]]</a></td>
 <td>[[${dto.videoTheme}]]</td>
 </tr>
 <tr><td colspan="4">

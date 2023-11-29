@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import webflix.command.VideoCommand;
 import webflix.service.video.VideoAutoNumService;
+import webflix.service.video.VideoDetailSerivce;
 import webflix.service.video.VideoListService;
 import webflix.service.video.VideoWriteService;
 
@@ -22,6 +23,8 @@ public class VideoController {
 	VideoWriteService videoWriteService;
 	@Autowired
 	VideoListService videoListService;
+	@Autowired
+	VideoDetailSerivce videoDetailSerivce;
 	@GetMapping("videoList")
 	public String videoList(Model model, @RequestParam(value="searchWord" , required = false)String searchWord, 
 			@RequestParam(value="page", required = false, defaultValue = "1")int page ) {
@@ -53,5 +56,11 @@ public class VideoController {
 		}
 		videoWriteService.execute(videoCommand);
 		return "redirect:videoList";
+	}
+	@GetMapping("videoDetail")
+	public String videoDetail(@RequestParam("videoNum")String videoNum, Model model) {
+		videoDetailSerivce.execute(videoNum, model);
+		
+		return "thymeleaf/video/videoInfo";
 	}
 }

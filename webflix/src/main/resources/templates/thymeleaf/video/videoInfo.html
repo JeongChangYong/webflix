@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table border="1" align="center" width="600px">
+<caption>영상 상세보기</caption>
+<tr><th width="150">영상번호</th> <td>[[${videoCommand.videoNum }]]</td></tr>
+<tr><th>영상명</th><td>[[${videoCommand.videoName }]]</td></tr>
+<tr><th>테마</th><td>[[${videoCommand.videoTheme }]]</td></tr>
+<tr><td colspan="2">
+		<img  th:src="|/static/upload/${videoCommand.videoImage}|" width="200" height="300">
+		<video width="200" height="300" controls="controls">
+		<source th:src="|/static/upload/${videoCommand.videoFile}|" type="video/mp4">
+		
+		</video> </td>
+		</tr>
+<tr><th colspan="2"><a href="javascript:history.back();">뒤로가기</a></th></tr>		
+</table>
+		
+</body>
+</html>

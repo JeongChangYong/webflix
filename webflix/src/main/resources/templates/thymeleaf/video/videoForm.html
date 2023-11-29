@@ -20,7 +20,8 @@
 <span style="color: red" th:if="${#fields.hasErrors('videoImage')}" th:errors="*{videoImage}"> </span> <br />
 영상파일 : <input type="file" name="videoFile" /> <br />
 <span style="color: red" th:if="${#fields.hasErrors('videoFile')}" th:errors="*{videoFile}"> </span> <br />
-<input type="submit" value="영상등록" />
+<input type="submit" value="영상등록" /> <br />
+<a href="javascript:history.back();">뒤로가기</a>
 
 
 

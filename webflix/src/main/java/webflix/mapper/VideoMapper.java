@@ -13,4 +13,5 @@ public interface VideoMapper {
 	public int videoInsert(VideoDTO dto);
 	public List<VideoDTO> allSelect(StartEndPageDTO sepDTO);
 	public int videoCount(String searchWord);
+	public VideoDTO selectOne(String videoNum);
 }
