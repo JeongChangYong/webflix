@@ -16,6 +16,38 @@ values(#{videoNum}, #{videoName}, #{videoTheme}, #{videoImage}, #{videoFile}, #{
 
 </insert>
 
+<select id="allSelect" parameterType="startEndPageDTO" resultType="video">
+select * from(
+ 	select row_number() over(order by video_num desc)as rn ,
+ 	video_num videoNum, video_theme videoTheme, video_image videoImage
+	,video_image_origin videoImageOrigin,video_name videoName, video_file videoFile
+	,video_file_origin videoFileOrigin
+	from video
+<where>
+	<if test="searchWord != null">
+		video_name like '%'  || #{searchWord} ||'%'
+		or video_num  like '%'  || #{searchWord} ||'%'
+	
+	</if>
+
+</where>
+) sub1
+where rn between #{startRow} and #{endRow}
+</select>
+
+<select id="videoCount" resultType="integer" parameterType="string">
+select count(*) from video
+  		<where>
+	<if test="searchWord != null">
+		video_name like '%'  || #{searchWord} ||'%'
+		or video_num  like '%'  || #{searchWord} ||'%'
+	
+	</if>
+
+</where>
+
+</select>
+
 
 
 </mapper>

@@ -7,9 +7,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import webflix.command.VideoCommand;
 import webflix.service.video.VideoAutoNumService;
+import webflix.service.video.VideoListService;
 import webflix.service.video.VideoWriteService;
 
 @Controller
@@ -18,9 +20,12 @@ public class VideoController {
 	VideoAutoNumService videoAutoNumService;
 	@Autowired
 	VideoWriteService videoWriteService;
+	@Autowired
+	VideoListService videoListService;
 	@GetMapping("videoList")
-	public String videoList() {
-		
+	public String videoList(Model model, @RequestParam(value="searchWord" , required = false)String searchWord, 
+			@RequestParam(value="page", required = false, defaultValue = "1")int page ) {
+		videoListService.execute(model, searchWord, page);
 		return "thymeleaf/video/videoList";
 	}
 	@GetMapping("videoRegist")

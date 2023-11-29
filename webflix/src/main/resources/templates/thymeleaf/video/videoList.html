@@ -5,6 +5,46 @@
 <title>Insert title here</title>
 </head>
 <body>
+영상 목록 <br />
+
+<table border="1" width="600px" align="center">
+<form action="videoList" method="get">
+	<tr><td colspan="6">검색 : 
+								<input type="search" name="searchWord" size="60" th:value="${searchWord}"/>
+								<input type="submit" value="검색">  </td> </tr>
+</form>
+<tr><td>번호</td> <td>영상번호</td><td>영상명</td><td>테마</td></tr>
+<tr th:each="dto, cnt : ${dtos}">
+<td>[[${cnt.count}]]</td>
+<td>[[${dto.videoNum}]]</td>
+<td>[[${dto.videoName}]]</td>
+<td>[[${dto.videoTheme}]]</td>
+</tr>
+<tr><td colspan="4">
+<th:block th:if="${page <=1}">
+		[이전]
+		</th:block>
+		<th:block th:if="${page >1}">
+<a th:href="@{videoList(page=${page -1},searchWord=${searchWord})}"> [이전]</a>		
+		</th:block>
+<th:block th:each="i : ${#numbers.sequence(startPage, endPage)}">
+		<a th:href="@{videoList(page=${i},searchWord=${searchWord})}"> [[${i}]]</a>
+		</th:block>
+		<th:block th:if="${page >= maxPage}">
+		[다음]
+		</th:block>
+		<th:block th:if="${page < maxPage}">
+		<a th:href="@{videoList(page=${page +1},searchWord=${searchWord})}"> 
+		[다음]	
+		</a>
+		</th:block>	
+		</td>
+		 </tr>
+
+</table>
+
+
+
 <a href="videoRegist">영상등록</a>
 
 
