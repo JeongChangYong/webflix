@@ -9,5 +9,13 @@ select concat('video' , coalesce(max(substr(video_num,6)::Integer),100000) + 1) 
 
 </select>
 
+<insert id="videoInsert" parameterType="video">
+insert into video(video_num,video_name,video_theme,video_image,video_file,video_file_origin,video_image_origin)
+values(#{videoNum}, #{videoName}, #{videoTheme}, #{videoImage}, #{videoFile}, #{videoFileOrigin}, #{videoImageOrigin} )
+
+
+</insert>
+
+
 
 </mapper>

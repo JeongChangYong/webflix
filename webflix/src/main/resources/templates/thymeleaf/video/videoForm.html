@@ -8,13 +8,18 @@
 <form action="videoWrite" method="post" enctype="multipart/form-data" th:object="${videoCommand}">
 영상번호 : <input type="text" name="videoNum" th:value="${videoCommand.videoNum}" readonly="readonly" /><br />
 영상명 : <input type="text" name="videoName" /> <br />
+<span style="color: red" th:if="${#fields.hasErrors('videoName')}" th:errors="*{videoName}"> </span> <br />
 테마 : <select name="videoTheme">
 				<option>영화</option>
 				<option>드라마</option>
 				<option>애니메이션</option>
-	  </select> <br />
+	  </select> 
+<span style="color: red" th:if="${#fields.hasErrors('videoTheme')}" th:errors="*{videoTheme}"> </span> <br />	  
+	  <br />
 이미지 : <input type="file" name="videoImage" /> <br />
+<span style="color: red" th:if="${#fields.hasErrors('videoImage')}" th:errors="*{videoImage}"> </span> <br />
 영상파일 : <input type="file" name="videoFile" /> <br />
+<span style="color: red" th:if="${#fields.hasErrors('videoFile')}" th:errors="*{videoFile}"> </span> <br />
 <input type="submit" value="영상등록" />
 
 
