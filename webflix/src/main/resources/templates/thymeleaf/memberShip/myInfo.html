@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+
+<form action="/action_page.php" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
+<h2 class="w3-center">My Info</h2>
+ 
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     이름 : [[${memberCommand.memName}]]
+    </div>
+</div>
+
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     아이디 : [[${memberCommand.memId}]]
+    </div>
+</div>
+
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     이메일 : [[${memberCommand.memEmail}]]
+    </div>
+</div>
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     주민등록번호 : [[${memberCommand.memJumin}]]
+    </div>
+</div>
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     주소 : [[${memberCommand.memAddr}]]
+    </div>
+</div>
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     상세주소 : [[${memberCommand.memAddrDetail}]]
+    </div>
+</div>
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     우편번호 : [[${memberCommand.memPost}]]
+    </div>
+</div>
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     연락처 : [[${memberCommand.memPhone}]]
+    </div>
+</div>
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     등록일 : [[${memberCommand.memRegist}]]
+    </div>
+</div>
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     포인트 : [[${memberCommand.memPoint}]]
+    </div>
+</div>
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     이벤트 당첨여부 : [[${memberCommand.memEventWin}]]
+    </div>
+</div>
+
+<br />
+<a href="javascript:history.back();">뒤로가기</a> <br />
+<a href="/">메인으로</a>
+<p class="w3-center">
+</p>
+</form>
+
+</body>
+</html> 

@@ -20,10 +20,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   class="w3-bar-item w3-button">Close Menu</a>
   
   <th:block th:if="${session.auth.grade =='mem'}">
+  <a href="myDetail" onclick="w3_close()" class="w3-bar-item w3-button">My Info</a>
   <a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">Movies</a>
   <a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">Drama</a>
   <a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">Animation</a>
-  <a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">Goods</a>
   <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">Inquire</a>
   </th:block>
   <th:block th:if="${session.auth.grade== 'emp'}">
