@@ -13,7 +13,19 @@ mem_num memNum,mem_id memId,mem_pw memPw,mem_name memName,mem_addr memAddr,mem_a
 <select id="memberInfo" resultType="member" parameterType="string">
 select	<include refid="memberColumnsBase" />
 				from members 
-				where mem_id= #{memberId}
+				where mem_id= #{memId}
 
 </select>
+
+<update id="memberPwUpdate" parameterType="string">
+update members set mem_pw =#{arg0} where mem_id=#{arg1}
+
+
+</update>
+
+<delete id="memberDrop" parameterType="string">
+delete from members where mem_id = #{arg0}
+
+
+</delete>
 </mapper>

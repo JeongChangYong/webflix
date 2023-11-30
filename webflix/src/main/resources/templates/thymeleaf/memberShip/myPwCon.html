@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+
+
+<h2 class="w3-center">비밀번호 확인</h2>
+ 
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+    <form action="memberPwModify" method="post" name="frm" id="frm">
+비밀번호 확인 : <input type="password" name="memPw" required="required"/>
+<input type="submit" value="확인" />
+<div style="color:red">[[${errPw }]]</div>
+    </div>
+</div>
+	</form>
+<div class="w3-row w3-section">
+<a href="myDetail">내정보 보기</a> <br />
+<a href="javascript:history.back();">뒤로가기</a> <br />
+<a href="/">메인으로</a>
+</div>
+<p class="w3-center">
+</p>
+
+
+</body>
+</html> 

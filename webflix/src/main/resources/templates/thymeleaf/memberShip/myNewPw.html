@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<script src="https://code.jquery.com/jquery-1.8.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.js"></script>
+
+<script>
+	$(function() {
+
+		$("#frm").submit(function() {
+			$(this).ajaxSubmit({
+				type : 'post',
+				url : 'myPwUpdate',
+				dataType : 'text',
+				beforeSubmit : passwordChecked,
+				success : resultOk,
+				error : function() {
+
+					alert("서버오류");
+				}
+
+			});
+			return false;
+		});
+
+	});
+	function resultOk(result, status, xhr, $form) {
+		if (status == 'success') {
+			if (result == "true") {
+
+				location.href = "myDetail";
+			} else {
+				$("#oldPw").val("");
+				$("#pwErr").text("비밀번호가 틀렸습니다.");
+				$("#pwErr").css("color", "red");
+				$("#newPwErr").text("");
+				$("#pwConErr").text("");
+				$("#oldPw").focus();
+
+			}
+		}
+	}
+	function passwordChecked() {
+		if ($("#oldPw").val() == "") {
+			$("#pwErr").text("현재 비밀번호를 입력해주세요.");
+			("#pwErr").css("color", "red");
+			alert("현재비밀번호를 입력해주세요.");
+			return false;
+		}
+		if ($("#newPw").val() != "") {
+			if ($("#newPw").val() != $("#newPwCon").val()) {
+				$("#newPwErr").text("");
+				$("#pwConErr").text("비밀번호 확인을 잘못입력하였습니다.");
+				$("#pwConErr").css("color", "red");
+				$("#newPw").val("");
+				$("#newPwCon").val("");
+				$("#newPw").focus();
+
+				return false;
+
+			}
+
+		} else {
+			$("#newPwErr").text("새 비밀번호를 입력해주세요.");
+			$("#newPwErr").css("color", "red");
+			return false;
+		}
+
+	}
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+
+<h2 class="w3-center">비밀번호 변경</h2>
+ 
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+   <form action="myPwUpdate" method="post" name="frm" id="frm">
+		현재비밀번호 : <input type="password" name="oldPw" id="oldPw" /> <span
+			id="pwErr"></span> <br /> 
+			변경비밀번호 : <input type="password"
+			name="newPw" id="newPw" /> <span id="newPwErr"></span><br /> 
+		비밀번호 확인 : <input type="password" name="newPwCon" id="newPwCon" /> <span
+			id="pwConErr"></span> <br /> <input type="submit" value="비밀번호 변경" />
+	</form>
+	</div>
+<div class="w3-row w3-section">
+<a href="myDetail">내정보 보기</a> <br />
+<a href="javascript:history.back();">뒤로가기</a> <br />
+<a href="/">메인으로</a>
+</div>
+<p class="w3-center">
+</p>
+
+
+</body>
+</html> 

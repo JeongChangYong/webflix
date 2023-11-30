@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<script src="https://code.jquery.com/jquery-1.8.1.min.js"></script>
+<script>
+
+$(function(){
+	$("#frm").submit(function(){
+		
+		if($("#memPw").val()==""){
+			alert("비밀번호를 입력해주세요.");
+			$("#memPw").focus();
+			return false;
+			
+		}else{
+			
+			conf = confirm("정말로 꼭 반드시 탈퇴하시겠습니까?");
+		 	if(!conf){
+		 		return false;
+		 	}
+			
+		}
+	});
+	
+});
+
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+
+<h2 class="w3-center">회원탈퇴</h2>
+ 
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     <form action="memberDropOk" method="post" name="frm" id="frm">
+	비밀번호 :<input type="password" name="memPw" id="memPw" />
+	<input type="submit" value="회원탈퇴" />
+	<div style="color:red">[[${errPw }]]</div>
+</form>
+    </div>
+</div>
+
+
+<div class="w3-row w3-section">
+<a href="javascript:history.back();">뒤로가기</a> <br />
+<a href="/">메인으로</a>
+</div>
+<p class="w3-center">
+</p>
+
+
+</body>
+</html> 
