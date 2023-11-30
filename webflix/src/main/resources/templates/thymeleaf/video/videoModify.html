@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+function fileDel(orgFile, storeFile, btn , kind){
+   $.ajax({
+      type: 'post',
+      url: 'fileDel',
+      dataType: 'text',
+      data:{"orgFile": orgFile, "storeFile": storeFile, "kind" : kind},
+      success: function(result){
+         if(result.trim() == "1"){
+            $(btn).text("삭제취소");
+            if(kind== 'main'){
+           	 $("#main").css("display", "none");
+           	 $("#mainFile").css("display", "");
+           	 
+            }
+         }else{
+            $(btn).text("삭제");
+            $("#main").css("display", "");
+       	 	$("#mainFile").css("display", "none");
+         }
+      }
+      
+   });
+	
+}
+function fileDel1(orgFile, storeFile, btn , kind){
+	   $.ajax({
+	      type: 'post',
+	      url: 'fileDel',
+	      dataType: 'text',
+	      data:{"orgFile": orgFile, "storeFile": storeFile, "kind" : kind},
+	      success: function(result){
+	         if(result.trim() == "1"){
+	            $(btn).text("삭제취소");
+	            if(kind== 'main1'){
+	           	 $("#main1").css("display", "none");
+	           	 $("#mainFile1").css("display", "");
+	           	 
+	            }
+	         }else{
+	            $(btn).text("삭제");
+	            $("#main1").css("display", "");
+	       	 	$("#mainFile1").css("display", "none");
+	         }
+	      }
+	      
+	   });
+		
+	}
+
+</script>
+</head>
+<body>
+<form action="videoUpdate" method="post" enctype="multipart/form-data" th:object="${videoCommand}">
+영상번호 : <input type="text" name="videoNum" th:value="${videoCommand.videoNum}" readonly="readonly" /><br />
+영상명 : <input type="text" name="videoName" th:value="${videoCommand.videoName}"/> <br />
+<span style="color: red" th:if="${#fields.hasErrors('videoName')}" th:errors="*{videoName}"> </span> <br />
+테마 : <select name="videoTheme" th:value="${videoCommand.videoTheme}">
+				<option>영화</option>
+				<option>드라마</option>
+				<option>애니메이션</option>
+	  </select> 
+<span style="color: red" th:if="${#fields.hasErrors('videoTheme')}" th:errors="*{videoTheme}"> </span> <br />	  
+	  <br />
+이미지 : <input type="file" name="videoImage" th:value="${videoCommand.videoImage}" id="mainFile" style="display: none;"/> <br />
+<span id="main"> [[${videoCommand.videoImageOrigin}]]</span>
+<button type="button" th:attr="onclick=|fileDel('${videoCommand.videoImageOrigin}',
+ 		'${videoCommand.videoImage}',this, 'main')|">삭제</button> <br />
+<span style="color: red" th:if="${#fields.hasErrors('videoImage')}" th:errors="*{videoImage}"> </span> <br />
+영상파일 : <input type="file" name="videoFile" th:value="${videoCommand.videoFile}" id="mainFile1" style="display: none;"/> <br />
+<span id="main1"> [[${videoCommand.videoFileOrigin}]]</span>
+
+<button type="button" th:attr="onclick=|fileDel1('${videoCommand.videoFileOrigin}',
+ 		'${videoCommand.videoFile}',this, 'main1')|">삭제</button> <br />
+<span style="color: red" th:if="${#fields.hasErrors('videoFile')}" th:errors="*{videoFile}"> </span> <br />
+<input type="submit" value="수정완료" /> <br />
+<a href="javascript:history.back();">뒤로가기</a>
+
+</form>
+</body>
+</html>

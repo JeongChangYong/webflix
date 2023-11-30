@@ -8,11 +8,16 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpSession;
+import webflix.command.FileCommand;
 import webflix.command.VideoCommand;
+import webflix.service.FileDelService;
 import webflix.service.video.VideoAutoNumService;
 import webflix.service.video.VideoDetailSerivce;
 import webflix.service.video.VideoListService;
+import webflix.service.video.VideoUpdateService;
 import webflix.service.video.VideoWriteService;
 
 @Controller
@@ -25,6 +30,10 @@ public class VideoController {
 	VideoListService videoListService;
 	@Autowired
 	VideoDetailSerivce videoDetailSerivce;
+	@Autowired
+	VideoUpdateService videoUpdateService;
+	@Autowired
+	FileDelService fileDelService;
 	@GetMapping("videoList")
 	public String videoList(Model model, @RequestParam(value="searchWord" , required = false)String searchWord, 
 			@RequestParam(value="page", required = false, defaultValue = "1")int page ) {
@@ -63,4 +72,28 @@ public class VideoController {
 		
 		return "thymeleaf/video/videoInfo";
 	}
+	@GetMapping("videoUpdate")
+	public String videoUpdate(@RequestParam("videoNum")String videoNum, Model model) {
+		videoDetailSerivce.execute(videoNum, model);
+		
+		return "thymeleaf/video/videoModify";
+	}
+	@PostMapping("videoUpdate")
+	public String videoUpdate(@Validated VideoCommand videoCommand ,BindingResult result, HttpSession session, Model model) {
+		videoUpdateService.execute(videoCommand, result, session, model);
+		if(result.hasErrors()) {
+			
+			return "thymeleaf/video/videoModify";
+		}
+		
+		return "redirect:videoDetail?videoNum="+videoCommand.getVideoNum();
+		
+	}
+	@PostMapping("fileDel")
+	public @ResponseBody String fsileDel(FileCommand fileCommand ,
+						 HttpSession session) {
+		
+		return fileDelService.execute(fileCommand, session);
+	
+}
 }

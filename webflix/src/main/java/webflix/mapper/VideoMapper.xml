@@ -57,5 +57,20 @@ where video_num =#{videoNum}
 </select>
 
 
+<update id="videoUpdate" parameterType="video">
+update video 
+set video_name =#{videoName},video_theme =#{videoTheme}
+<if test="videoImage != null">
+,video_image =#{videoImage}
+,video_image_origin  =#{videoImageOrigin}
+</if>
+<if test="videoFile != null">
+,video_file =#{videoFile}
+,video_file_origin =#{videoFileOrigin}
+</if>
+where video_num =#{videoNum}
+</update>
+
+
 
 </mapper>
