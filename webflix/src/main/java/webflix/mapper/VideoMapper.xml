@@ -71,6 +71,18 @@ set video_name =#{videoName},video_theme =#{videoTheme}
 where video_num =#{videoNum}
 </update>
 
+<delete id="videoDelete" parameterType="string">
+
+delete from video
+where video_num = #{videoNum}
+
+</delete>
+<delete id="productsDelete" parameterType="string">
+delete from video where video_num in
+  	<foreach collection="products" item="videoNum" open="(" close=")" index="index" separator=",">
+  	#{videoNum}
+  	</foreach>
+</delete>
 
 
 </mapper>

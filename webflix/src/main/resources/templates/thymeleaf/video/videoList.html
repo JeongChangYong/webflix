@@ -3,6 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+	$("#frm").submit(function(){
+		if($("input:checkbox[name=memDels]:checked").length < 1){
+			alert("하나이상 선택하세요.");
+			return false;
+			
+		}
+		
+	});
+	$("#checkBoxs").click(function(){
+		if($("#checkBoxs").prop("checked")){
+			$("input:checkbox[name=memDels]").prop("checked", true);
+			
+			
+		}else{
+			
+			$("input:checkbox[name=memDels]").prop("checked", false);
+		}
+		
+	});
+	$("input:checkbox[name=memDels]").click(function(){
+		var tot = $("input:checkbox[name=memDels]").length;
+		var checked = $("input:checkbox[name=memDels]:checked").length;
+		if(tot == checked){
+			$("#checkBoxs").prop("checked", true); 	
+			
+		}else {
+			$("#checkBoxs").prop("checked" , false);
+			
+		}
+		
+		
+	});
+	
+});
+
+</script>
 </head>
 <body>
 영상 목록 <br />
@@ -13,14 +53,22 @@
 								<input type="search" name="searchWord" size="60" th:value="${searchWord}"/>
 								<input type="submit" value="검색">  </td> </tr>
 </form>
-<tr><td>번호</td><td>영상번호</td><td>영상명</td><td>테마</td></tr>
+<form action="productsDelete" method="post" id="frm">
+<tr><td>번호</td><td>영상번호</td><td>영상명</td><td>테마</td>
+	<td>
+		<input type="checkbox" id="checkBoxs" />
+		<input type="submit" value="삭제" /> 
+	</td>
+</tr>
 <tr th:each="dto, cnt : ${dtos}">
 <td>[[${cnt.count}]]</td>
 <td><a th:href="|videoDetail?videoNum=${dto.videoNum}|">[[${dto.videoNum}]] </a></td>
 <td><a th:href="|videoDetail?videoNum=${dto.videoNum}|">  [[${dto.videoName}]]</a></td>
 <td>[[${dto.videoTheme}]]</td>
+<td><input type="checkbox" name="memDels" th:value="${dto.videoNum}"> </td>
 </tr>
-<tr><td colspan="4">
+</form>
+<tr><td colspan="5">
 <th:block th:if="${page <=1}">
 		[이전]
 		</th:block>

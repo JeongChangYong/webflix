@@ -3,6 +3,7 @@ package webflix.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import webflix.domain.StartEndPageDTO;
 import webflix.domain.VideoDTO;
@@ -15,4 +16,6 @@ public interface VideoMapper {
 	public int videoCount(String searchWord);
 	public VideoDTO selectOne(String videoNum);
 	public int videoUpdate(VideoDTO dto);
+	public int videoDelete(String videoNum);
+	public int productsDelete(@Param("products") String products[]);
 }
