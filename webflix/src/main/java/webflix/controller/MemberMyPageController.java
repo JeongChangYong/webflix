@@ -70,7 +70,7 @@ public class MemberMyPageController {
 			return "thymeleaf/memberShip/memberDrop";
 		}
 	}
-	@GetMapping("memberUpdate")
+	@GetMapping("memberInfoUpdate")
 	public String memberUpdate(HttpSession session, Model model) {
 		memberInfoService.execute(session, model);
 		return "thymeleaf/memberShip/myModify";
