@@ -68,60 +68,27 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   
   <div class="w3-row-padding w3-padding-16 w3-center" id="video">
   	 <h2>VIDEO</h2>
+  	 <th:block th:each="dto, idx : ${list}">
     <div class="w3-quarter">
-      <img src="/static/images/그대들 어떻게 살 것인가.jpg" alt="그대들 어떻게 살 것인가" style="width:100%">
-      <h5>그대들 어떻게 살 것인가 <br /> 2023</h5>
-      <p>미야자키 하야오 감독</p>
+    <a th:href="|detailView?videoNum=${dto.videoNum}|" style="text-decoration:none;">
+      <img th:src="|/static/upload/${dto.videoImage}|"  width="300" height="400">
+      <h5>[[${dto.videoName}]] <br /></h5>
+      <p>[[${dto.videoTheme}]]</p>
+      </a>
     </div>
-    <div class="w3-quarter">
-      <img src="/static/images/whiplash.jpg" alt="whiplash" style="width:100%">
-      <h5>위플래쉬 <br /> 2015 </h5>
-      <p>데이미언 셔젤 감독</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="/static/images/미생.jpg" alt="미생" style="width:100%">
-      <h5>미생 <br /> 2014 </h5>
-      <p>tvN 제작</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="/static/images/포레스트검프.jpg" alt="포레스트검프" style="width:100%">
-      <h5>포레스트 검프 <br /> 1994</h5>
-      <p>로버트 저메키스 감독</p>
-    </div>
+    <th:block th:if="${idx.count %4 == 0}" th:utext="'</div><div>'"></th:block>
+   	 </th:block>
   </div>
   
 
   <hr id="about">
 
-  <!-- About Section -->
-  <div class="w3-row-padding w3-padding-16 w3-center" id="goods">
-  	<h2>Goods</h2>
-    <div class="w3-quarter">
-      <img src="/static/goods/그대들 어떻게 살 것인가 상품.jpg" alt="그대들 어떻게 살 것인가" width="200" height="300">
-      <h5><그대들 어떻게 살 것인가> 포스터</h5>
-      <p>20,000원</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="/static/goods/위플래쉬 상품.jpg" alt="whiplash" width="200" height="300">
-      <h5><위플래쉬> CD </h5>
-      <p>15,000원</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="/static/goods/미생 상품.jpg" alt="미생" width="200" height="300">
-      <h5><미생> 특별 보급판 세트</h5>
-      <p>64,800원</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="/static/goods/포레스트 검프 상품.jpg" alt="포레스트검프" width="200" height="300">
-      <h5>검프 초콜렛</h5>
-      <p>30,000원</p>
-    </div>
-  </div>
+ 
   
  
 
 <!-- End page content -->
-</div>
+</div> 
 
 <script>
 // Script to open and close sidebar

@@ -1,10 +1,140 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<title>W3.CSS</title>
+<script src="https://code.jquery.com/jquery-1.8.1.min.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/static/js/daumAddressScript.js"></script>
+<script type="text/javascript">
+
+$(function(){
+	$("#frm").submit(function(){
+		if($("#emailCheck").text()=="" || $("#emailCheck").text() == "사용중인 이메일입니다."){
+			alert("이메일 중복확인을 해주세요.");
+			return false;
+			
+		}
+		
+	});
+	
+	
+	$("#memEmail").on("change keyup", function(){
+		$.ajax({
+			type : 'post',
+			url : "/checkRest/userEmailCheck",
+			data :  {"userEmail" : $("#memEmail").val()},
+			dataType: 'text',
+			success : function(result){
+				$("#emailCheck").text(result);
+				if(result.trim() == "사용가능한 이메일입니다."){
+						$("#emailCheck").css("color", "blue");
+					
+				}else {
+					
+						$("#emailCheck").css("color", "red");
+				}
+				
+				
+			},
+			error : function(){
+				
+				
+				
+				
+			}
+			
+			
+			
+		});
+		
+	});
+	
+	
+});
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body>
 
+<h2 class="w3-center">My Info Update</h2>
+<form action="memberInfoUpdate" name="frm" method="post" th:object="${memberCommand}">
+<input type="hidden" name="memJumin" value="2342343243">
+<input type="hidden" name="memPwCon" value="1111111111" />
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     이름 : <input type="text" name="memName" th:value="${memberCommand.memName}"  /><br />
+<span style="color: red" th:if="${#fields.hasErrors('memName')}" th:errors="*{memName}"> </span><br/>
+    </div>
+</div>
+
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     아이디 : <input type="text" name="memId" id="memId"  th:value="${memberCommand.memId}" readonly="readonly" /><br />
+	
+	<span style="color: red" th:if="${#fields.hasErrors('memId')}" th:errors="*{memId}"> </span><br/>
+    </div>
+</div>
+
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     비밀번호 : <input type="password" name="memPw"/> <br />
+<span style="color: red" th:if="${#fields.hasErrors('memPw')}" th:errors="*{memPw}"> </span><br/>
+    </div>
+</div>
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     연락처 : <input type="tel" name="memPhone" th:value="${memberCommand.memPhone}"  /> <br />
+<span style="color: red" th:if="${#fields.hasErrors('memPhone')}" th:errors="*{memPhone}"> </span><br/>
+    </div>
+</div>
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     주소 : <input type="text" name="memAddr" id="sample4_roadAddress" th:value="${memberCommand.memAddr}" 
+ 		onclick="execDaumPostcode();" readonly="readonly" /><br />
+<span style="color: red" th:if="${#fields.hasErrors('memAddr')}" th:errors="*{memAddr}"> </span><br/>
+    </div>
+</div>
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     상세주소 : <input type="text" name="memAddrDetail"  th:value="${memberCommand.memAddrDetail}" /><br />
+    </div>
+</div>
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     우편번호 :  <input type="text" name="memPost" id="sample4_postcode" th:value="${memberCommand.memPost}"  readonly="readonly"/><br />
+    </div>
+</div>
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     이메일 : <input type="email" name="memEmail" id="memEmail" th:value="${memberCommand.memEmail}"  /><br />
+<span id="emailCheck"></span>
+<span style="color: red" th:if="${#fields.hasErrors('memEmail')}" th:errors="*{memEmail}"> </span><br/>
+    </div>
+</div>
+<input type="submit" value="수정완료" />
+</form>
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"></div>
+    <div class="w3-rest">
+     결제여부 :  <input type="text" name="paymentStatus" th:value="${memberCommand.paymentStatus}"  readonly="readonly"/><br />
+    </div>
+</div>
+<div class="w3-row w3-section">
+<a href="myDetail">내정보 보기</a> <br />
+<a href="javascript:history.back();">뒤로가기</a> <br />
+<a href="/">메인으로</a>
+</div>
+<p class="w3-center">
+</p>
+
+
 </body>
-</html>
+</html> 

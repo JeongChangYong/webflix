@@ -9,4 +9,5 @@ import webflix.domain.VideoDTO;
 @Mapper
 public interface BookmarkMapper {
 	public List<VideoDTO> videoSelectAll(String videoNum);
+	public Integer bookmarkSelect(String videoNum, String memNum);
 }

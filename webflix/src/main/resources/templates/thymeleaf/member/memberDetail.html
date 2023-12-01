@@ -28,6 +28,7 @@
         가입일 :[[${#dates.format(dto.memRegist, 'yyyy-MM-dd')}]] <br />
         포인트 :[[${dto.memPoint}]] <br />
         이벤트 당첨 여부 :[[${dto.memEventWin}]]<br /> 
+        결제 여부 : [[${dto.paymentStatus}]]
       
       </div>
       <a th:href="|memberUpdate?memberNum=${dto.memNum}|">정보수정</a>

@@ -40,4 +40,5 @@ public class MemberCommand {
 	}
 	Integer memPoint;
 	String memEventWin;
+	String paymentStatus;
 }

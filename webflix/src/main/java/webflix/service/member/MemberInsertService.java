@@ -29,6 +29,7 @@ public class MemberInsertService {
 		dto.setMemPost(memberCommand.getMemPost());
 		dto.setMemPw(passwordEncoder.encode(memberCommand.getMemPw()));
 		dto.setMemRegist(memberCommand.getMemRegist());
+		dto.setPaymentStatus(memberCommand.getPaymentStatus());
 		memberMapper.memberInsert(dto);
 		
 	}

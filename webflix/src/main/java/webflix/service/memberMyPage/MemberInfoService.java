@@ -32,6 +32,7 @@ public class MemberInfoService {
 		memberCommand.setMemPost(dto.getMemPost());
 		memberCommand.setMemPw(dto.getMemPw());
 		memberCommand.setMemRegist(dto.getMemRegist());
+		memberCommand.setPaymentStatus(dto.getPaymentStatus());
 		model.addAttribute("memberCommand", memberCommand);
 		
 	}

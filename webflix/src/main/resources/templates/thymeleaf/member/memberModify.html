@@ -33,6 +33,7 @@
         가입일 :<input type="text" name="memRegist" th:value="${#dates.format(dto.memRegist, 'yyyy-MM-dd')}" readonly="readonly"/> <br />
         포인트 :<input type="text" name="memPoint" th:value="${dto.memPoint}" readonly="readonly"/> <br />
         이벤트 당첨 여부 :<input type="text" name="memEventWin" th:value="${dto.memEventWin}" readonly="readonly"/> <br /> 
+        결제 여부 : <input type="text" name="paymentStatus" th:value="${dto.paymentStatus}" readonly="readonly">
       	<input type="submit" value="수정완료" />
       	</form>
       </div>

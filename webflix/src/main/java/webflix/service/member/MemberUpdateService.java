@@ -27,7 +27,7 @@ public class MemberUpdateService {
 		dto.setMemPoint(memberCommand.getMemPoint());
 		dto.setMemPost(memberCommand.getMemPost());
 		dto.setMemRegist(memberCommand.getMemRegist());
-		
+		dto.setPaymentStatus(memberCommand.getPaymentStatus());
 		memberMapper.memberUpdate(dto);
 		
 	}

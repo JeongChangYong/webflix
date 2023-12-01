@@ -11,10 +11,10 @@ select concat('mem' , coalesce(max(substr(mem_num,4)::Integer),100000) + 1) from
 <insert id="memberInsert" parameterType="member">
 insert into members(mem_num,mem_id,mem_pw,mem_name
 ,mem_addr,mem_addr_detail,mem_post,mem_phone
-,mem_regist,mem_jumin,mem_email,mem_email_conf,mem_point,mem_event_win)
+,mem_regist,mem_jumin,mem_email,mem_email_conf,mem_point,mem_event_win, payment_status)
 values(#{memNum}, #{memId}, #{memPw}, #{memName}, #{memAddr}
 , #{memAddrDetail}, #{memPost}, #{memPhone}, now()
-, #{memJumin}, #{memEmail}, 'T', 0, 'F')
+, #{memJumin}, #{memEmail}, 'T', 0, 'F', 'F')
 
 </insert>
 
@@ -33,7 +33,7 @@ values(#{memNum}, #{memId}, #{memPw}, #{memName}, #{memAddr}
     <sql id="memberColumnsBase">
 mem_num memNum,mem_id memId,mem_pw memPw,mem_name memName,mem_addr memAddr,mem_addr_detail memAddrDetail
 ,mem_post memPost,mem_phone memPhone,mem_regist memRegist,mem_jumin memJumin,mem_email memEmail
-,mem_email_conf memEmailConf,mem_point memPoint,mem_event_win memEventWin
+,mem_email_conf memEmailConf,mem_point memPoint,mem_event_win memEventWin, payment_status paymentStatus
   </sql>
 
 
@@ -61,7 +61,7 @@ mem_num memNum,mem_id memId,mem_pw memPw,mem_name memName,mem_addr memAddr,mem_a
   set mem_name= #{memName}, mem_jumin=#{memJumin}, mem_id=#{memId}
   , mem_addr= #{memAddr}, mem_addr_detail =#{memAddrDetail}, mem_post=#{memPost}
   , mem_phone=#{memPhone}, mem_regist=#{memRegist},mem_point=#{memPoint}
-  , mem_event_win =#{memEventWin}
+  , mem_event_win =#{memEventWin}, payment_status = #{paymentStatus}
   where mem_num= #{memNum}
   
   </update>

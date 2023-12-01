@@ -75,14 +75,17 @@ public class MemberMyPageController {
 		memberInfoService.execute(session, model);
 		return "thymeleaf/memberShip/myModify";
 	}
-	@PostMapping("memberUpdate")
+	@PostMapping("memberInfoUpdate")
 	public String memberUpdate(@Validated MemberCommand memberCommand, BindingResult result, HttpSession session) {
 		memberInfoUpdateService.execute(memberCommand, session, result);
 		if(result.hasErrors()) {
+			System.out.println("에러발생");
 			return "thymeleaf/memberShip/myModify";
 			
 		}
 		
-		return "redirect:myDetail";
+	
+			return "redirect:myDetail";
+		
 	}
 }

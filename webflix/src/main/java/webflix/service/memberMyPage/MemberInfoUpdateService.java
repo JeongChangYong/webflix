@@ -35,21 +35,18 @@ public class MemberInfoUpdateService {
 		 
 		
 		MemberDTO dto = new MemberDTO();
-		/*
-		dto.setMemberAddr(memberCommand.getMemberAddr());
-		dto.setMemberAddrDetail(memberCommand.getMemberAddr2());
-		dto.setMemberEmail(memberCommand.getMemberEmail());
-		dto.setGender(memberCommand.getMemberGender());
-		dto.setMemberId(memberCommand.getMemberId());
-		dto.setMemberName(memberCommand.getMemberName());
-		dto.setMemberPhone1(memberCommand.getMemberPhone1());
-		dto.setMemberPhone2(memberCommand.getMemberPhone2());
-		dto.setMemberPost(memberCommand.getMemberPost());
-		dto.setMemberBirth(memberCommand.getMemberBirth());
+		
+		dto.setMemAddr(memberCommand.getMemAddr());
+		dto.setMemAddrDetail(memberCommand.getMemAddrDetail());
+		dto.setMemEmail(memberCommand.getMemEmail());
+		dto.setMemId(memberCommand.getMemId());
+		dto.setMemName(memberCommand.getMemName());
+		dto.setMemPhone(memberCommand.getMemPhone());
+		dto.setMemPost(memberCommand.getMemPost());
 		
 		
 		memberMyMapper.memberInfoUpdate(dto);
-		*/
+		
 		return 1;
 		
 		}

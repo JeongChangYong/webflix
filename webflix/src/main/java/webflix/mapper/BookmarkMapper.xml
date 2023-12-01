@@ -3,4 +3,67 @@
 	"-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-<mapper namespace="webflix.mapper.BookmarkMapper"></mapper>
+<mapper namespace="webflix.mapper.BookmarkMapper">
+<sql id="videoBaseColumns">
+video_num,
+video_name,
+video_theme,
+video_image,
+video_file,
+video_file_origin,
+video_image_origin
+
+
+
+</sql>
+
+<select id="videoSelectAll" resultType="video">
+select
+video_num videoNum,
+video_name videoName,
+video_theme videoTheme,
+video_image videoImage,
+video_file videoFile,
+video_file_origin videoFileOrigin,
+video_image_origin videoImageOrigin
+from video
+
+<where>
+<if test="videoNum != null">
+video_num = #{videoNum}
+
+</if>
+
+</where>
+
+</select>
+
+
+
+<select id="bookmarkSelect" resultType="integer">
+
+select 1 from bookmark
+where video_num= #{arg0} and mem_num = #{arg1} 
+
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

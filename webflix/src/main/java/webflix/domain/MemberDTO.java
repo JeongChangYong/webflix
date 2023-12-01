@@ -23,4 +23,5 @@ public class MemberDTO {
 	   String memEmailConf;
 	   Integer memPoint;
 	   String memEventWin;
+	   String paymentStatus;
 }
