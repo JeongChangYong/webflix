@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<header class="w3-container w3-teal">
+  <h1>Login</h1>
+  <h2 align="center"><a href="/" style="text-decoration:none;"> WEBFLIX</a></h2>
+</header>
+
+<div class="w3-container w3-half w3-margin-top">
+
+<form class="w3-container w3-card-4" action="login1" method="post" th:object="${loginCommand}" >
+
+<p>
+<label>ID</label>
+<input class="w3-input" type="text" name="userId" th:value="${loginCommand.userId}" style="width:90%" > <br />
+<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"><br /></span>
+</p>
+<p>
+<label>Password</label>
+<input class="w3-input" type="password" name="userPw" style="width:90%" > <br />
+<span th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}"><br /></span>
+</p>
+
+
+
+<p>
+<label><a href="userWrite" style="text-decoration:none;"> 회원가입</a></label>
+<label>자동 로그인 <input type="checkbox" name="autoLogin" /></label></p>
+<p>
+<input type="submit" value="Log In" />
+</p>
+
+</form>
+
+</div>
+
+</body>
+</html> 

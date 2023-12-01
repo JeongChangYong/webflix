@@ -16,11 +16,11 @@
  insert into members(mem_num, mem_id,mem_pw,mem_name,mem_addr
  ,mem_addr_detail,mem_post,mem_phone,mem_regist,mem_jumin
  ,mem_email,mem_email_conf,mem_point,
-mem_event_win)
+mem_event_win, payment_status)
   values((select concat('mem', coalesce(max(substring(mem_num,4)::integer),1000000)+1)  from members) 
   , #{memId} , #{memPw} , #{memName} , #{memAddr} 
   , #{memAddrDetail} , #{memPost} , #{memPhone} 
-  , now(), #{memJumin} , #{memEmail} , null, 0 , 'F');
+  , now(), #{memJumin} , #{memEmail} , null, 0 , 'F', 'F');
  
  
  </insert>
@@ -42,11 +42,11 @@ mem_event_win)
  
  <select id="loginSelect" parameterType="string" resultType="authInfo">
   
- select mem_id userId , mem_pw userPw , mem_name userName , 'mem' grade , mem_email  userEmail, mem_email_conf userEmailCheck 
+ select mem_id userId , mem_pw userPw , mem_name userName , 'mem' grade , mem_email  userEmail, mem_email_conf userEmailCheck, payment_status paymentStatus 
  from members
  where mem_id=#{userId}
  union
- select emp_id, emp_pw, emp_name, 'emp', emp_email, 'T'
+ select emp_id, emp_pw, emp_name, 'emp', emp_email, 'T', 'T'
  from employees
  where emp_id=#{userId}
  

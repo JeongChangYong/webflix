@@ -1,5 +1,8 @@
 package webflix.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -53,6 +56,36 @@ public class LoginController {
 		}
 		
 		return "redirect:/";
+		
+	}
+	@GetMapping("login1")
+	public String login1(LoginCommand loginCommand) {
+		
+		return "thymeleaf/login1";
+	}
+	@PostMapping("login1")
+	public String login1(@Validated LoginCommand loginCommand, BindingResult result , HttpSession session ,HttpServletResponse response ) {
+		
+		userLoginService.execute(loginCommand, session, result , response);
+		if(result.hasErrors()) {
+			
+			return "thymeleaf/login1";
+		}
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String str = "<script language='javascript'>"
+				+ " opener.location.reload();"
+				+ " window.self.close();"
+				+ " </script>";
+		out.print(str);
+		out.close();
+		return null;
 		
 	}
 	@GetMapping("logout")

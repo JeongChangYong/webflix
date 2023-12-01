@@ -20,6 +20,7 @@ public class AuthInfoDTO {
 	String tableName;
 	String pwColumnName;
 	String userIdColumnName;
+	String paymentStatus;
 	public AuthInfoDTO(String userId, String userPw, String userName, String grade, String userEmail,
 			String userEmailCheck) {
 		super();
