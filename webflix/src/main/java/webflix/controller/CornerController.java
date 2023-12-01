@@ -15,10 +15,10 @@ public class CornerController {
 	WatchingVideoService watchingVideoService;
 	
 	@GetMapping("detailView")
-	public String prodInfo(@RequestParam("videoNum")String videoNum, Model model) {
+	public String prodInfo(@RequestParam("videoNum")String videoNum, Model model, HttpSession session) {
 		
 		
-		watchingVideoService.execute(videoNum, model);
+		watchingVideoService.execute(videoNum, model, session);
 		return "thymeleaf/corner/detailView";
 	}
 }

@@ -3,10 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#bookmark").click(function(){
+		if([[${session.auth == null}]]){
+			window.open("/login1","login", "width=500, height=500, top = 100, left=100");
+			return false;
+		}else{
+			
+			$.ajax({
+				type:'post',
+				url:"bookmarkAdd",
+				dataType:"text",
+				data : {"videoNum":"[[${dto.videoNum}]]"},
+				success:function(result){
+					if(result.trim() == "1"){
+						$("#bookmark").attr("src", "/static/images/star full.jpg");
+						
+					}else if(result.trim() == "0"){
+						
+						$("#bookmark").attr("src", "/static/images/star blank.jpg");
+					}
+					
+				},
+				error : function(){
+					
+					alert("관리자는 사용할 수 없습니다.");
+				}
+				
+			});
+			
+			
+		}
+	
+	});
+	
+	
+	
+});
+
+
+</script>
 </head>
 <body>
 
 <video th:src="|/static/upload/${dto.videoFile}|" type="video/mp4" controls="controls"></video>
+<th:block th:if="${bookmark == null}">
+<img src="/static/images/star blank.jpg" id="bookmark" width="20" />
+</th:block>
+<th:block th:if="${bookmark != null}">
+<img src="/static/images/star full.jpg" id="bookmark" width="20" />
+</th:block>
 
 <br />
 <br />
