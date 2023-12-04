@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<script type="text/javascript">
+            function paybtn() {
+                INIStdPay.pay('SendPayForm_id');
+            }
+        </script>
+<style>
+h2.w3-wide {
+  text-decoration: line-through; /* 반가르게 표시하는 속성 */
+  text-decoration-color: red; /* 효과의 색상 설정 (원하는 색상으로 변경) */
+  text-decoration-thickness: 2px; /* 효과의 두께 설정 */
+  text-decoration-style: solid; /* 효과의 스타일 설정 (solid, dotted, dashed 등) */
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+<br>
+<form id="SendPayForm_id" method="post" class="mt-5">
+<input type="hidden" name="version" value="1.0">
+<input type="hidden" name="gopaymethod" value="Card:Directbank:vbank">
+<input type="hidden" name="mid" th:value="${mid}">
+<input type="hidden" name="oid" th:value="${orderNumber}">
+<input type="hidden" name="price" th:value="${price}">
+<input type="hidden" name="timestamp" th:value="${timestamp}">
+<input type="hidden" name="signature" th:value="${signature}">
+<input type="hidden" name="mKey" th:value="${mKey}">
+<input type="hidden" name="currency" value="WON">
+<input type="hidden" name="goodname" th:value="${purchaseName}">
+<input type="hidden" name="buyername" th:value="${buyername}">
+<input type="hidden" name="buyertel" th:value="${buyertel}">
+<input type="hidden" name="buyeremail" th:value="${buyeremail}">
+<input type="hidden" name="returnUrl" value="http://localhost:8080/INIstdpay_pc_return">
+<input type="hidden" name="closeUrl" value="http://localhost:8080/close">
+<input type="hidden" name="acceptmethod" value="HPP(1):below1000:va_receipt">
+
+
+
+
+<div class="w3-container">
+  <h2 align="center">Subscription</h2>
+</div>
+
+<div class="w3-row-padding">
+
+<div class="w3-third w3-margin-bottom">
+  <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+    <li class="w3-black w3-xlarge w3-padding-32">Regular</li>
+    <li class="w3-padding-16"><b>30</b> 일</li>
+    <li class="w3-padding-16">
+      <h2 class="w3-wide">$ 10 </h2>
+      <span class="w3-opacity">-10%</span>
+      <h2>→$ 8</h2>
+      
+    </li>
+    <li class="w3-light-grey w3-padding-24">
+      <input type="radio" name="orderPrice" class="w3-button w3-green w3-padding-large" value="8" />
+    </li>
+  </ul>
+</div>
+
+<div class="w3-third w3-margin-bottom">
+  
+  <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+    <li class="w3-green w3-xlarge w3-padding-32">Discount</li>
+    <li class="w3-padding-16"><b>180</b> 일</li>
+    <li class="w3-padding-16">
+      <h2 class="w3-wide">$ 60</h2>
+      <span class="w3-opacity">-15%</span>
+      <h2>→$ 51</h2>
+    </li>
+    <li class="w3-light-grey w3-padding-24">
+      <input type="radio" name="orderPrice" class="w3-button w3-green w3-padding-large" value="51" />
+    </li>
+  </ul>
+</div>
+
+<div class="w3-third w3-margin-bottom">
+  <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+    <li class="w3-black w3-xlarge w3-padding-32">Special Discount</li>
+    <li class="w3-padding-16"><b>360</b> 일</li>
+    <li class="w3-padding-16">
+      <h2 class="w3-wide">$ 120</h2>
+      <span class="w3-opacity">-20%</span>
+      <h2>→$ 96</h2>
+    </li>
+    <li class="w3-light-grey w3-padding-24">
+       <input type="radio" name="orderPrice" class="w3-button w3-green w3-padding-large" value="96" />
+    </li>
+  </ul>
+</div>
+	<div align="center">
+	<button onclick="paybtn()" class="w3-button w3-green w3-padding-large" style="margin-top:50px">Choose</button>
+	</div>
+</div>
+</form>
+</body>
+</html> 

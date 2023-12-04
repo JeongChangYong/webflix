@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC    
+   "-//mybatis.org//DTD Mapper 3.0//EN" 
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+   <mapper namespace="webflix.mapper.PurchaseMapper">
+   
+   <select id="selectNum" resultType="string">
+select concat( to_char(now(), 'YYYYMMDD'),coalesce(max(substr(order_num,9))::integer,10000) +1) from orders
+where substring(order_num, 1, 8)   = to_char(now(), 'YYYYMMDD') 
+
+</select>
+   <insert id="purchaseInsert" parameterType="purchase">
+   insert into orders(order_num, order_date, order_price, purchase_status, mem_num)
+   values(#{orderNum}, now(), #{orderPrice}, #{purchaseStatus}, #{memNum})
+   
+   
+   </insert>
+   
+   
+   </mapper>
