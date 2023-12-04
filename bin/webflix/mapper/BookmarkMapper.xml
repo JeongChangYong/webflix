@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="webflix.mapper.BookmarkMapper">
+<sql id="videoBaseColumns">
+video_num,
+video_name,
+video_theme,
+video_image,
+video_file,
+video_file_origin,
+video_image_origin
+
+
+
+</sql>
+
+<select id="videoSelectAll" resultType="video">
+select
+video_num videoNum,
+video_name videoName,
+video_theme videoTheme,
+video_image videoImage,
+video_file videoFile,
+video_file_origin videoFileOrigin,
+video_image_origin videoImageOrigin
+from video
+
+<where>
+<if test="videoNum != null">
+video_num = #{videoNum}
+
+</if>
+
+</where>
+
+</select>
+
+
+
+<select id="bookmarkSelect" resultType="integer">
+
+select 1 from bookmark
+where video_num= #{arg0} and mem_num = #{arg1} 
+
+</select>
+<insert id="bookmarkInsert">
+	insert into bookmark(video_num, mem_num, bookmark_date)
+	values(#{arg0}, #{arg1}, now())
+</insert>
+
+<delete id="bookmarkDelete" >
+	
+delete from bookmark 
+where video_num= #{arg0} and mem_num = #{arg1} 
+</delete>
+
+
+<select id="bookmarkList" resultType="video" parameterType="string">
+
+select video_num videoNum,
+video_name videoName,
+video_theme videoTheme,
+video_image videoImage,
+video_file videoFile,
+video_file_origin videoFileOrigin,
+video_image_origin videoImageOrigin from video where video_num in (select video_num from bookmark where mem_num= #{memNum})
+
+</select>
+
+
+<delete id="bookmarkDeletes">
+delete from bookmark where mem_num = #{memNum}
+and video_num in 
+<foreach collection="videoNums" item="videoNum" open="(" close=")" index="index" separator=",">
+#{videoNum}
+
+</foreach>
+
+
+</delete>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

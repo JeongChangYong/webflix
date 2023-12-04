@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC    
+   "-//mybatis.org//DTD Mapper 3.0//EN" 
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="webflix.mapper.MemberMapper">
+<select id="memberAutoNum" resultType="string">
+select concat('mem' , coalesce(max(substr(mem_num,4)::Integer),100000) + 1) from members
+
+</select>
+<insert id="memberInsert" parameterType="member">
+insert into members(mem_num,mem_id,mem_pw,mem_name
+,mem_addr,mem_addr_detail,mem_post,mem_phone
+,mem_regist,mem_jumin,mem_email,mem_email_conf,mem_point,mem_event_win, payment_status)
+values(#{memNum}, #{memId}, #{memPw}, #{memName}, #{memAddr}
+, #{memAddrDetail}, #{memPost}, #{memPhone}, now()
+, #{memJumin}, #{memEmail}, 'T', 0, 'F', 'F')
+
+</insert>
+
+  <select id="memberCount" parameterType="string" resultType="integer">
+  
+  select count(*) from members
+  		<if test="searchWord != null">
+	    <where> mem_name like '%' ||#{searchWord}|| '%'
+				or mem_num like  '%' ||#{searchWord}|| '%'
+				or mem_id like '%' ||#{searchWord}|| '%'
+		</where>
+	    </if>
+  
+  </select>
+  
+    <sql id="memberColumnsBase">
+mem_num memNum,mem_id memId,mem_pw memPw,mem_name memName,mem_addr memAddr,mem_addr_detail memAddrDetail
+,mem_post memPost,mem_phone memPhone,mem_regist memRegist,mem_jumin memJumin,mem_email memEmail
+,mem_email_conf memEmailConf,mem_point memPoint,mem_event_win memEventWin, payment_status paymentStatus
+  </sql>
+
+
+<select id="selectAll" resultType="member"  parameterType="startEndPageDTO" >
+  select * from( select row_number() over(order by mem_num asc)as rn ,<include refid="memberColumnsBase" /> from members
+	    <if test="searchWord != null">
+	    where mem_name like '%' ||#{searchWord}|| '%'
+				or mem_num like  '%' ||#{searchWord}|| '%'
+				or mem_id like '%' ||#{searchWord}|| '%'
+	    </if>) sub1
+	
+	where rn between #{startRow} and #{endRow}	 
+	  
+  </select>
+  
+  <select id="selectOne" parameterType="string" resultType="member">
+  select <include refid="memberColumnsBase" /> from members
+  where mem_num = #{memberNum}
+  
+  </select>
+  
+  <update id="memberUpdate" parameterType="member">
+  
+  update members
+  set mem_name= #{memName}, mem_jumin=#{memJumin}, mem_id=#{memId}
+  , mem_addr= #{memAddr}, mem_addr_detail =#{memAddrDetail}, mem_post=#{memPost}
+  , mem_phone=#{memPhone}, mem_regist=#{memRegist},mem_point=#{memPoint}
+  , mem_event_win =#{memEventWin}, payment_status = #{paymentStatus}
+  where mem_num= #{memNum}
+  
+  </update>
+  
+    <delete id="membersDelete" parameterType="string">
+  
+  delete from members where mem_num in
+  	<foreach collection="memDels" item="memNum" open="(" close=")" index="index" separator=",">
+  	#{memNum}
+  	</foreach>
+  
+  </delete>
+  
+   <delete id="memberDelete" parameterType="string">
+ 
+ delete from members 
+ 
+ <trim prefix="where" prefixOverrides="And | OR" >
+ and mem_num = #{memberNum}
+ 
+ </trim>
+ 
+ 
+ 
+ 
+ </delete>
+  
+</mapper>

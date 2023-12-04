@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC    
+   "-//mybatis.org//DTD Mapper 3.0//EN" 
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="webflix.mapper.VideoMapper">
+<select id="videoAutoNum" resultType="string">
+select concat('video' , coalesce(max(substr(video_num,6)::Integer),100000) + 1) from video
+
+</select>
+
+<insert id="videoInsert" parameterType="video">
+insert into video(video_num,video_name,video_theme,video_image,video_file,video_file_origin,video_image_origin)
+values(#{videoNum}, #{videoName}, #{videoTheme}, #{videoImage}, #{videoFile}, #{videoFileOrigin}, #{videoImageOrigin} )
+
+
+</insert>
+
+<select id="allSelect" parameterType="startEndPageDTO" resultType="video">
+select * from(
+ 	select row_number() over(order by video_num desc)as rn ,
+ 	video_num videoNum, video_theme videoTheme, video_image videoImage
+	,video_image_origin videoImageOrigin,video_name videoName, video_file videoFile
+	,video_file_origin videoFileOrigin
+	from video
+<where>
+	<if test="searchWord != null">
+		video_name like '%'  || #{searchWord} ||'%'
+		or video_num  like '%'  || #{searchWord} ||'%'
+	
+	</if>
+
+</where>
+) sub1
+where rn between #{startRow} and #{endRow}
+</select>
+
+<select id="videoCount" resultType="integer" parameterType="string">
+select count(*) from video
+  		<where>
+	<if test="searchWord != null">
+		video_name like '%'  || #{searchWord} ||'%'
+		or video_num  like '%'  || #{searchWord} ||'%'
+	
+	</if>
+
+</where>
+
+</select>
+
+<select id="selectOne" resultType="video" parameterType="string">
+select video_num videoNum ,video_theme videoTheme ,video_image videoImage ,video_image_origin videoImageOrigin
+		,video_name videoName ,video_file videoFile ,video_file_origin videoFileOrigin
+from video
+where video_num =#{videoNum}
+
+</select>
+
+
+<update id="videoUpdate" parameterType="video">
+update video 
+set video_name =#{videoName},video_theme =#{videoTheme}
+<if test="videoImage != null">
+,video_image =#{videoImage}
+,video_image_origin  =#{videoImageOrigin}
+</if>
+<if test="videoFile != null">
+,video_file =#{videoFile}
+,video_file_origin =#{videoFileOrigin}
+</if>
+where video_num =#{videoNum}
+</update>
+
+<delete id="videoDelete" parameterType="string">
+
+delete from video
+where video_num = #{videoNum}
+
+</delete>
+<delete id="productsDelete" parameterType="string">
+delete from video where video_num in
+  	<foreach collection="products" item="videoNum" open="(" close=")" index="index" separator=",">
+  	#{videoNum}
+  	</foreach>
+</delete>
+
+
+</mapper>
