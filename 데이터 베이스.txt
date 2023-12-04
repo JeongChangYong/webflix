@@ -1,0 +1,238 @@
+CREATE TABLE public.bookmark (
+	video_num varchar(30) NOT NULL,
+	mem_num varchar(30) NOT NULL,
+	bookmark_date date NOT NULL,
+	CONSTRAINT video_mem_num_pk PRIMARY KEY (video_num, mem_num),
+	CONSTRAINT bookmark_mem_num_fk FOREIGN KEY (mem_num) REFERENCES public.members(mem_num) ON DELETE CASCADE,
+	CONSTRAINT bookmark_video_num_fk FOREIGN KEY (video_num) REFERENCES public.video(video_num) ON DELETE CASCADE
+);
+
+
+
+
+CREATE TABLE public.contract (
+	contract_num varchar(30) NOT NULL,
+	contract_kind varchar(10) NULL,
+	contract_date date NULL,
+	contract_state varchar(1) NULL,
+	contract_qty int4 NULL,
+	contract_payment int4 NULL,
+	dis_num varchar(30) NULL,
+	manu_num varchar(30) NULL,
+	video_num varchar(10) NOT NULL,
+	goods_num varchar(10) NOT NULL,
+	CONSTRAINT contr_video_goods_num_pk PRIMARY KEY (contract_num, video_num, goods_num),
+	CONSTRAINT dis_num_fk FOREIGN KEY (dis_num) REFERENCES public.distributor(dis_num),
+	CONSTRAINT goods_num_fk FOREIGN KEY (goods_num) REFERENCES public.goods(goods_num),
+	CONSTRAINT manu_num_fk FOREIGN KEY (manu_num) REFERENCES public.manufacturer(manu_num),
+	CONSTRAINT video_num_fk FOREIGN KEY (video_num) REFERENCES public.video(video_num)
+);
+
+
+
+CREATE TABLE public.delivery (
+	order_num varchar(30) NOT NULL,
+	delivery_num varchar(20) NULL,
+	delivery_date date NULL,
+	delivery_state varchar(20) NULL,
+	delivery_company varchar(100) NULL,
+	CONSTRAINT del_order_num_pk PRIMARY KEY (order_num),
+	CONSTRAINT delivery_num_uu UNIQUE (delivery_num),
+	CONSTRAINT order_num_fk FOREIGN KEY (order_num) REFERENCES public.orders(order_num) ON DELETE CASCADE
+);
+
+
+CREATE TABLE public.distributor (
+	dis_num varchar(30) NOT NULL,
+	CONSTRAINT dis_num_pk PRIMARY KEY (dis_num)
+);
+
+
+
+
+CREATE TABLE public.employees (
+	emp_num varchar(30) NOT NULL,
+	emp_id varchar(10) NOT NULL,
+	emp_pw varchar(200) NOT NULL,
+	emp_name varchar(50) NOT NULL,
+	emp_addr varchar(200) NOT NULL,
+	emp_addr_detail varchar(30) NULL,
+	emp_post varchar(6) NOT NULL,
+	emp_phone varchar(13) NOT NULL,
+	emp_jumin varchar(14) NOT NULL,
+	emp_email varchar(200) NOT NULL,
+	emp_enter_date date NOT NULL,
+	CONSTRAINT emp_email_uu UNIQUE (emp_email),
+	CONSTRAINT emp_id_uu UNIQUE (emp_id),
+	CONSTRAINT emp_jumin_uu UNIQUE (emp_jumin),
+	CONSTRAINT emp_num_pk PRIMARY KEY (emp_num)
+);
+
+
+
+
+CREATE TABLE public.events (
+	event_num varchar(30) NOT NULL,
+	event_name varchar(50) NULL,
+	event_kind varchar(20) NULL,
+	event_content varchar(2000) NULL,
+	event_start_date date NULL,
+	event_end_date date NULL,
+	event_winner varchar(50) NULL,
+	event_prize_ok varchar(1) NULL,
+	mem_num varchar(30) NOT NULL,
+	CONSTRAINT event_mem_num_pk PRIMARY KEY (event_num, mem_num),
+	CONSTRAINT mem_num_fk FOREIGN KEY (mem_num) REFERENCES public.members(mem_num) ON DELETE SET NULL
+);
+
+
+
+
+CREATE TABLE public.goods (
+	goods_num varchar(10) NOT NULL,
+	goods_name varchar(100) NOT NULL,
+	goods_price int4 NOT NULL,
+	goods_content varchar(2000) NOT NULL,
+	goods_main_store varchar(500) NOT NULL,
+	goods_main_store_img varchar(500) NOT NULL,
+	delivery_cost int4 NULL DEFAULT 0,
+	visit_count int4 NULL DEFAULT 0,
+	video_name varchar(50) NULL,
+	emp_num varchar(30) NULL,
+	CONSTRAINT goods_num_pk PRIMARY KEY (goods_num),
+	CONSTRAINT emp_num_fk FOREIGN KEY (emp_num) REFERENCES public.employees(emp_num) ON DELETE SET NULL
+);
+
+
+
+CREATE TABLE public.inquire (
+	inquire_num serial4 NOT NULL,
+	goods_num varchar(10) NOT NULL,
+	video_num varchar(10) NOT NULL,
+	mem_num varchar(30) NOT NULL,
+	inquire_subject varchar(100) NOT NULL,
+	inquire_content varchar(2000) NOT NULL,
+	inquire_kind varchar(20) NOT NULL,
+	inquire_date date NOT NULL,
+	inquire_answer varchar(2000) NULL,
+	inquire_answer_date date NULL,
+	emp_num varchar(30) NULL,
+	CONSTRAINT inq_goods_video_mem_num_pk PRIMARY KEY (inquire_num, goods_num, video_num, mem_num),
+	CONSTRAINT emp_num_fk FOREIGN KEY (emp_num) REFERENCES public.employees(emp_num) ON DELETE SET NULL,
+	CONSTRAINT goods_num_fk FOREIGN KEY (goods_num) REFERENCES public.goods(goods_num) ON DELETE CASCADE,
+	CONSTRAINT mem_num_fk FOREIGN KEY (mem_num) REFERENCES public.members(mem_num) ON DELETE CASCADE,
+	CONSTRAINT video_num_fk FOREIGN KEY (video_num) REFERENCES public.video(video_num) ON DELETE CASCADE
+);
+
+
+
+
+CREATE TABLE public.ipgo (
+	ipgo_num varchar(30) NOT NULL,
+	goods_num varchar(30) NOT NULL,
+	ipgo_qty int4 NOT NULL,
+	made_date date NOT NULL,
+	ipgo_price int4 NOT NULL,
+	ipgo_date date NOT NULL,
+	emp_num varchar(30) NULL,
+	CONSTRAINT ipgo_num_goods_num_pk PRIMARY KEY (ipgo_num, goods_num),
+	CONSTRAINT emp_num_fk FOREIGN KEY (emp_num) REFERENCES public.employees(emp_num) ON DELETE SET NULL,
+	CONSTRAINT goods_num_fk FOREIGN KEY (goods_num) REFERENCES public.goods(goods_num)
+);
+
+
+
+
+CREATE TABLE public.manufacturer (
+	manu_num varchar(30) NOT NULL,
+	CONSTRAINT manu_num_pk PRIMARY KEY (manu_num)
+);
+
+
+
+CREATE TABLE public.members (
+	mem_num varchar(30) NOT NULL,
+	mem_id varchar(15) NOT NULL,
+	mem_pw varchar(200) NOT NULL,
+	mem_name varchar(15) NOT NULL,
+	mem_addr varchar(200) NOT NULL,
+	mem_addr_detail varchar(30) NULL,
+	mem_post varchar(6) NOT NULL,
+	mem_phone varchar(13) NOT NULL,
+	mem_regist date NOT NULL,
+	mem_jumin varchar(14) NOT NULL,
+	mem_email varchar(100) NOT NULL,
+	mem_email_conf bpchar(1) NULL,
+	mem_point varchar(20) NULL,
+	mem_event_win varchar(2) NULL,
+	payment_status varchar(1) NULL,
+	CONSTRAINT mem_email_uu UNIQUE (mem_email),
+	CONSTRAINT mem_id_uu UNIQUE (mem_id),
+	CONSTRAINT mem_jumin_uu UNIQUE (mem_jumin),
+	CONSTRAINT mem_num_pk PRIMARY KEY (mem_num)
+);
+
+
+
+
+CREATE TABLE public.order_list (
+	order_num varchar(30) NOT NULL,
+	goods_num varchar(10) NOT NULL,
+	order_qty int4 NOT NULL,
+	total_price int4 NOT NULL,
+	CONSTRAINT order_goods_num_pk PRIMARY KEY (order_num, goods_num),
+	CONSTRAINT goods_num_fk FOREIGN KEY (goods_num) REFERENCES public.goods(goods_num),
+	CONSTRAINT order_num_fk FOREIGN KEY (order_num) REFERENCES public.orders(order_num) ON DELETE CASCADE
+);
+
+
+
+
+CREATE TABLE public.orders (
+	order_num varchar(30) NOT NULL,
+	order_date date NOT NULL,
+	order_price int4 NOT NULL,
+	delivery_name varchar(200) NULL,
+	delivery_addr varchar(200) NULL,
+	delivery_addr_detail varchar(30) NULL,
+	delivery_post varchar(6) NULL,
+	delivery_phone varchar(13) NULL,
+	message varchar(200) NULL,
+	purchase_status varchar(20) NULL,
+	mem_num varchar(30) NULL,
+	CONSTRAINT order_num_pk PRIMARY KEY (order_num),
+	CONSTRAINT mem_num_fk FOREIGN KEY (mem_num) REFERENCES public.members(mem_num) ON DELETE SET NULL
+);
+
+
+
+
+CREATE TABLE public.payment (
+	order_num varchar(30) NOT NULL,
+	payment_kind varchar(50) NULL,
+	total_price int4 NULL,
+	confirm_number varchar(20) NULL,
+	card_number varchar(15) NULL,
+	tid varchar(50) NULL,
+	result_message varchar(100) NULL,
+	CONSTRAINT pay_order_num_pk PRIMARY KEY (order_num),
+	CONSTRAINT order_num_fk FOREIGN KEY (order_num) REFERENCES public.orders(order_num) ON DELETE CASCADE
+);
+
+
+
+
+CREATE TABLE public.video (
+	video_num varchar(30) NOT NULL,
+	video_name varchar(50) NULL,
+	video_theme varchar(30) NULL,
+	video_image varchar(3000) NULL,
+	video_file varchar(700) NULL,
+	video_file_origin varchar(700) NULL,
+	video_image_origin varchar(3000) NULL,
+	CONSTRAINT video_num_pk PRIMARY KEY (video_num)
+);
+
+
+
+
