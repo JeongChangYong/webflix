@@ -16,10 +16,12 @@
 		<source th:src="|/static/upload/${videoCommand.videoFile}|" type="video/mp4">
 		</video></td>
 		</tr>
-<tr><th colspan="2"><a href="javascript:history.back();">뒤로가기</a>|
+<tr><th colspan="2"><a href="javascript:history.back();">뒤로가기</a>
+<th:block th:if="${session.auth.grade == 'emp'}">
+ |
 <a th:href="|videoUpdate?videoNum=${videoCommand.videoNum }|">영상 수정</a> | 
 <a th:href="|videoDel?videoNum=${videoCommand.videoNum}|"> 영상 삭제 </a>| <a href="videoList">영상 목록</a></th></tr>	
-	
+</th:block>	
 </table>
 
 		

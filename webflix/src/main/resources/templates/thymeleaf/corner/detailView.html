@@ -49,11 +49,12 @@ $(function(){
 <body>
 
 <video th:src="|/static/upload/${dto.videoFile}|" type="video/mp4" controls="controls"></video>
+<br />
 <th:block th:if="${bookmark == null}">
-<img src="/static/images/star blank.jpg" id="bookmark" width="20" />
+<img src="/static/images/star blank.jpg" id="bookmark" width="40" />
 </th:block>
 <th:block th:if="${bookmark != null}">
-<img src="/static/images/star full.jpg" id="bookmark" width="20" />
+<img src="/static/images/star full.jpg" id="bookmark" width="40" />
 </th:block>
 
 <br />
