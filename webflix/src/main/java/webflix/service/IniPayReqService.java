@@ -9,11 +9,15 @@ import org.springframework.ui.Model;
 import com.inicis.std.util.SignatureUtil;
 
 import jakarta.servlet.http.HttpSession;
+import webflix.domain.AuthInfoDTO;
 
 @Service
-public class IniPayReturnService {
-	public void execute(String purchaseNum,
+public class IniPayReqService {
+	public void execute(
 			HttpSession session,Model model) throws Exception {
+		
+	AuthInfoDTO auth = (AuthInfoDTO)session.getAttribute("auth");	
+	
 	String mid					= "INIpayTest";		                    // 상점아이디					
 	String signKey			    = "SU5JTElURV9UUklQTEVERVNfS0VZU1RS";	// 웹 결제 signkey
 	
@@ -31,5 +35,16 @@ public class IniPayReturnService {
 	signParam.put("timestamp", timestamp);
 
 	String signature = SignatureUtil.makeSignature(signParam);
+	model.addAttribute("timestamp", timestamp);
+	model.addAttribute("mid", mid);
+	model.addAttribute("signature", signature);
+	model.addAttribute("orderNumber", orderNumber);
+	model.addAttribute("mKey", mKey);
+	model.addAttribute("price", price);
+
+	
+	
+	
+	
 	}
 }

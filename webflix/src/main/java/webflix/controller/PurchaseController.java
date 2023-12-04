@@ -5,9 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import webflix.service.IniPayReqService;
 import webflix.service.purchase.WebPurchaseService;
 
 
@@ -15,10 +17,16 @@ import webflix.service.purchase.WebPurchaseService;
 public class PurchaseController {
 	@Autowired
 	WebPurchaseService webPurchaseService;
+	@Autowired
+	IniPayReqService iniPayReqService;
 	@GetMapping("webPurchase")
-	public String webPay(String purchaseNum,
-			HttpSession session,Model model) {
-		
+	public String webPay(HttpSession session,Model model) {
+		try {
+			iniPayReqService.execute(session, model);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "thymeleaf/purchase/webPay";
 	}
 	@PostMapping("INIstdpay_pc_return")
