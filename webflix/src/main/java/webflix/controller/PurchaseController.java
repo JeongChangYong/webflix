@@ -5,11 +5,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import webflix.service.IniPayReqService;
+import webflix.service.purchase.IniPayReturnService;
 import webflix.service.purchase.WebPurchaseService;
 
 
@@ -19,25 +23,42 @@ public class PurchaseController {
 	WebPurchaseService webPurchaseService;
 	@Autowired
 	IniPayReqService iniPayReqService;
+	@Autowired
+	IniPayReturnService iniPayReturnService;
 	@GetMapping("webPurchase")
-	public String webPay(HttpSession session,Model model) {
+	public String webPay() {
+		return "thymeleaf/purchase/webPay";
+	}
+	@PostMapping("webPurchase")
+	public String webPay(
+			@RequestParam("price") String price,
+			HttpSession session,Model model, HttpServletResponse response) {
 		try {
-			iniPayReqService.execute(session, model);
+			iniPayReqService.execute(session, model, price, response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "thymeleaf/purchase/webPay";
+		return "thymeleaf/purchase/payment";
 	}
 	@PostMapping("INIstdpay_pc_return")
 	public String payReturn(HttpServletRequest request, HttpSession session, Model model) {
-		//iniPayReturnService.execute(request, session,model);
+		iniPayReturnService.execute(request, session,model);
 		return "thymeleaf/purchase/buyfinished";
 	}
 	@GetMapping("close")
-	public String close() {
+	public String close(HttpServletResponse response) {
+		Cookie cookie = new Cookie("userId", "");
 		
-		return "redirect:/";
+		//저장경로
+		cookie.setPath("/");
+		
+		//수명주기
+		cookie.setMaxAge(0);
+		
+		//사용자에게 쿠키 전송
+		response.addCookie(cookie);
+		return "thymeleaf/purchase/close";
 	}
 	
 	

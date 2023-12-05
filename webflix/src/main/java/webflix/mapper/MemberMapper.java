@@ -18,4 +18,5 @@ public interface MemberMapper {
 	public int memberUpdate(MemberDTO dto);
 	public int membersDelete(@Param("memDels")String [] memDels);
 	public int memberDelete(String memberNum);
+	public int updateStatus(String memNum);
 }

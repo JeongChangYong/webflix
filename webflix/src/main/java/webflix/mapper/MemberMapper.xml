@@ -88,5 +88,19 @@ mem_num memNum,mem_id memId,mem_pw memPw,mem_name memName,mem_addr memAddr,mem_a
  
  
  </delete>
+ 
+ <update id="updateStatus" parameterType="string">
+ update members
+
+ set payment_status= 'T'
+
+where mem_num = #{memNum}
+ 
+ 
+ 
+ 
+ </update>
+ 
+ 
   
 </mapper>

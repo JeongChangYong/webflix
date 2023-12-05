@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>KG이니시스 결제샘플</title>
+        <link rel="stylesheet" href="/static/css/style.css">
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+		
+		<!--테스트 JS--><script language="javascript" type="text/javascript" src="https://stgstdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script>
+		<!--운영 JS> <script language="javascript" type="text/javascript" src="https://stdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script> -->
+        <script src="https://code.jquery.com/jquery-1.8.1.min.js"></script>
+        <script type="text/javascript">
+            $(function(){
+            	INIStdPay.pay('SendPayForm_id');
+            });
+        </script>
+    </head>
+
+    <body class="wrap">
+
+        <!-- 본문 -->
+        <main class="col-8 cont" id="bill-01">
+            <!-- 페이지타이틀 -->
+            <section class="mb-5">
+                <div class="tit">
+                    
+                </div>
+            </section>
+            <!-- //페이지타이틀 -->
+
+
+            <!-- 카드CONTENTS -->
+            <section class="menu_cont mb-5">
+                <div class="card">
+                    <div class="card_tit">
+                        
+                    </div>
+
+                    <!-- 유의사항 -->
+                    <div class="card_desc">
+                        
+                    </div>
+                    <!-- //유의사항 -->
+
+
+                    <form  id="SendPayForm_id" method="post" class="mt-5">
+                        <div class="row g-3 justify-content-between" style="--bs-gutter-x:0rem;">
+				    
+                            <!--label class="col-10 col-sm-2 gap-2 input param" style="border:none;">version</label>
+                            <label class="col-10 col-sm-9 input"-->
+                                <input type="hidden" name="version" value="1.0">
+                            <!--/label-->
+				    
+                            
+                            <label class="col-10 col-sm-9 input">
+                                <input type="hidden" name="gopaymethod" value="Card:Directbank:vbank">
+                            </label>
+				    		
+				    		
+                            <label class="col-10 col-sm-9 input">
+                                <input type="hidden" name="mid" th:value="${mid}">
+                            </label>
+				    
+                            
+                            <label class="col-10 col-sm-9 input">
+                                <input type="hidden" name="oid" th:value="${orderNumber}">
+                            </label>
+				    		
+				    		
+                            <label class="col-10 col-sm-9 input">
+                                <input type="hidden" name="price" th:value="${price}">
+                            </label>
+				    		
+				    		
+                            <label class="col-10 col-sm-9 input">
+                                <input type="hidden" name="timestamp" th:value="${timestamp}">
+                            </label>
+				    
+				    
+                            <input type="hidden" name="signature" th:value="${signature}">
+				    		<input type="hidden" name="mKey" th:value="${mKey}">
+                            <input type="hidden" name="currency" value="WON">
+				    		
+				    		
+				    		
+                            <label class="col-10 col-sm-9 input">
+                                <input type="hidden" name="goodname" value="결제비용">
+                            </label>
+				    		
+				    		
+                            <label class="col-10 col-sm-9 input">
+                                <input type="hidden" name="buyername" value="1234">
+                            </label>
+				    		
+				    		
+                            <label class="col-10 col-sm-9 input">
+                                <input type="hidden" name="buyertel" value="1234">
+                            </label>
+				    		
+				    		
+                            <label class="col-10 col-sm-9 input">
+                                <input type="hidden" name="buyeremail" value="serious04127@naver.com">
+                            </label>
+				    		
+				    		<input type="hidden" name="returnUrl" value="http://localhost:8080/INIstdpay_pc_return">
+                            <input type="hidden" name="closeUrl" value="http://localhost:8080/close">
+                            
+				    		
+                            <label class="col-10 col-sm-9 input">
+                                <input type="hidden" name="acceptmethod" value="HPP(1):below1000:va_receipt">
+                            </label>
+							
+                        </div>
+                    </form>
+				
+				    <button onclick="paybtn()" class="btn_solid_pri col-6 mx-auto btn_lg" style="margin-top:50px">결제 요청</button>
+					
+                </div>
+            </section>
+			
+        </main>
+		
+    </body>
+</html>

@@ -17,5 +17,48 @@ where substring(order_num, 1, 8)   = to_char(now(), 'YYYYMMDD')
    
    </insert>
    
-   
+   <insert id="paymentInsert" parameterType="payment">
+insert into payment(order_num,
+payment_kind,
+total_price,
+confirm_number,
+card_number,
+tid,
+result_message, payment_date, mem_num, day)
+values(#{orderNum},#{paymentKind} , #{totalPrice} , #{confirmNumber} 
+		,#{cardNumber} ,#{tid} ,#{resultMessage}, now(), #{memNum} , #{day} )
+
+
+</insert>
+
+
+
+<update id="purchaseStatusUpdate" parameterType="string">
+update orders
+set purchase_status = #{arg0}
+where order_num = #{arg1}
+
+</update>
+<select id="purchaseSelect" parameterType="string" resultType="purchase">
+
+select order_num orderNum,
+order_date orderDate,
+order_price orderPrice,
+purchase_status purchaseStatus,
+mem_num memNum
+from orders
+where order_num = #{orderNum}
+</select>
+
+
+<select id="paymentSelect" parameterType="string">
+select 1 from payment
+where payment_date + (duration || ' days')::interval > payment_date;
+
+</select>
+
+
+
+
+
    </mapper>

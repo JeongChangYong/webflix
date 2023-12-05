@@ -13,6 +13,7 @@ import webflix.service.bookmark.BookmarkDelService;
 import webflix.service.bookmark.BookmarkDelsService;
 import webflix.service.bookmark.BookmarkListService;
 import webflix.service.bookmark.BookmarkService;
+import webflix.service.purchase.PaymentCheckService;
 import webflix.service.video.WatchingVideoService;
 
 @Controller
@@ -27,11 +28,14 @@ public class CornerController {
 	BookmarkDelsService bookmarkDelsService;
 	@Autowired
 	BookmarkDelService bookmarkDelService;
+	@Autowired
+	PaymentCheckService paymentCheckService;
 	@GetMapping("detailView")
 	public String prodInfo(@RequestParam("videoNum")String videoNum, Model model, HttpSession session) {
 		
 		
 		watchingVideoService.execute(videoNum, model, session);
+		paymentCheckService.execute(session);
 		return "thymeleaf/corner/detailView";
 	}@PostMapping("bookmarkAdd")
 	public @ResponseBody String bookmarkAdd(@RequestParam("videoNum")String videoNum,
