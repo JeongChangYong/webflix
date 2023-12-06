@@ -35,8 +35,10 @@ public class CornerController {
 		
 		
 		watchingVideoService.execute(videoNum, model, session);
-		paymentCheckService.execute(session);
-		return "thymeleaf/corner/detailView";
+		paymentCheckService.execute(session,videoNum);
+		
+		//return "thymeleaf/corner/detailView";
+		return paymentCheckService.execute(session, videoNum);
 	}@PostMapping("bookmarkAdd")
 	public @ResponseBody String bookmarkAdd(@RequestParam("videoNum")String videoNum,
 			HttpSession session) {

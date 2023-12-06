@@ -42,22 +42,13 @@ public class PurchaseController {
 		return "thymeleaf/purchase/payment";
 	}
 	@PostMapping("INIstdpay_pc_return")
-	public String payReturn(HttpServletRequest request, HttpSession session, Model model) {
-		iniPayReturnService.execute(request, session,model);
+	public String payReturn(HttpServletRequest request, HttpSession session, Model model, HttpServletResponse response) {
+		iniPayReturnService.execute(request, session,model,  response);
 		return "thymeleaf/purchase/buyfinished";
 	}
 	@GetMapping("close")
 	public String close(HttpServletResponse response) {
-		Cookie cookie = new Cookie("userId", "");
 		
-		//저장경로
-		cookie.setPath("/");
-		
-		//수명주기
-		cookie.setMaxAge(0);
-		
-		//사용자에게 쿠키 전송
-		response.addCookie(cookie);
 		return "thymeleaf/purchase/close";
 	}
 	

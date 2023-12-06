@@ -24,9 +24,9 @@ total_price,
 confirm_number,
 card_number,
 tid,
-result_message, payment_date, mem_num, day)
+result_message, payment_date, mem_num, days)
 values(#{orderNum},#{paymentKind} , #{totalPrice} , #{confirmNumber} 
-		,#{cardNumber} ,#{tid} ,#{resultMessage}, now(), #{memNum} , #{day} )
+		,#{cardNumber} ,#{tid} ,#{resultMessage}, now(), #{memNum} , #{days} )
 
 
 </insert>
@@ -51,10 +51,11 @@ where order_num = #{orderNum}
 </select>
 
 
-<select id="paymentSelect" parameterType="string">
-select 1 from payment
-where payment_date + (duration || ' days')::interval > payment_date;
-
+<select id="paymentSelect" parameterType="string" resultType="integer">
+SELECT 1
+FROM payment
+WHERE payment_date &lt;= payment_date + days::integer
+and mem_num = #{memNum}
 </select>
 
 

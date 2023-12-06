@@ -20,5 +20,5 @@ public class PaymentDTO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd" )
 	Date paymentDate;
 	String memNum;
-	String day;
+	String days;
 }

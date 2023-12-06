@@ -15,20 +15,19 @@ public class PaymentCheckService {
 	MemberMyMapper memberMyMapper;
 	@Autowired
 	PurchaseMapper purchaseMapper;
-	public String execute(HttpSession session) {
+	public String execute(HttpSession session, String videoNum) {
 		
 		AuthInfoDTO auth = (AuthInfoDTO)session.getAttribute("auth");
 		MemberDTO memDTO = memberMyMapper.memberInfo(auth.getUserId());
 		
 		Integer i = purchaseMapper.paymentSelect(memDTO.getMemNum());
+		
 		if(i == null) {
 			
 			return "thymeleaf/purchase/webPay";
 		}
 		else {
-			
-			
-			return "redirect:detailView";
+			return "thymeleaf/corner/detailView";
 		}
 		
 		

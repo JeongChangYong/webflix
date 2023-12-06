@@ -15,6 +15,7 @@ import com.inicis.std.util.SignatureUtil;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import webflix.command.LoginCommand;
 import webflix.domain.AuthInfoDTO;
@@ -36,7 +37,7 @@ public class IniPayReturnService {
 	@Autowired
 	MemberMyMapper memberMyMapper;
 	
-	public void execute(HttpServletRequest request, HttpSession session, Model model) {
+	public void execute(HttpServletRequest request, HttpSession session, Model model, HttpServletResponse response) {
 		
 		Map<String, String> resultMap = new HashMap<String, String>();
 
@@ -139,19 +140,19 @@ public class IniPayReturnService {
 					
 					if(resultMap.get("TotPrice").equals("10000")) {
 						
-						dto.setDay("30");
+						dto.setDays("30");
 					}
 					else if(resultMap.get("TotPrice").equals("54000")) {
 						
-						dto.setDay("180");
+						dto.setDays("180");
 					}
 					else if(resultMap.get("TotPrice").equals("102000")) {
 						
-						dto.setDay("360");
+						dto.setDays("360");
 					}
 					else {
 						
-						dto.setDay("0");
+						dto.setDays("0");
 					}
 					Cookie [] cookies = request.getCookies();
 					if(cookies != null && cookies.length > 0) {
@@ -168,7 +169,16 @@ public class IniPayReturnService {
 					}
 					
 					int i = purchaseMapper.paymentInsert(dto);
+					Cookie cookie = new Cookie("userId","");
 					
+					//저장경로
+					cookie.setPath("/");
+					
+					//수명주기
+					cookie.setMaxAge(0);
+					
+					//사용자에게 쿠키 전송
+					response.addCookie(cookie);
 					
 				} catch (Exception ex) {
 
